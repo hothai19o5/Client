@@ -19,27 +19,6 @@ public class Chat_Body extends javax.swing.JPanel {
     public Chat_Body() {
         initComponents();
         init();
-        addDate("17/04/2024");
-        addItemRight("Send a text message to a group of contacts. Include photos, personalize your texts, and track who clicked your links.", new ImageIcon(getClass().getResource("/testSetAvatar/PXL_20240217_100821946.jpg")));
-        addItemRight("hello\nHi");
-        String img[] = {"LKO2:N%2Tw=w]~RBVZRi};RPxuwH", "LGF5?xYk^6#M@-5c,1J5@[or[Q6."};
-        addItemLeft("Simpletext started as a passion project because I couldn’t find what I was looking for. Most apps were trying to do too much and ended up bloated with features I don’t need. So I built Simpletext based on a simple premise — what if there’s an app that refuses to do more, choosing instead to do just one thing, and do it well? For Simpletext, that one thing is writing.", "Thái", img);
-        addItemLeft("hello\nerererew\newewe", "Thái");
-        addItemRight("hello\nerererew\newewe");
-        addItemLeft("hello\nerererew\newewe", "Thái");
-        addItemRight("Có nhắn tiếng việt được không nhỉ");
-        addItemRight("adu, nhắn đc này, ngol");
-        addItemRight("Send a text message to a group of contacts. Include photos, personalize your texts, and track who clicked your links.");
-        addItemRight("hello\nHi");
-        addItemLeft("Simpletext started as a passion project because I couldn’t find what I was looking for. Most apps were trying to do too much and ended up bloated with features I don’t need. So I built Simpletext based on a simple premise — what if there’s an app that refuses to do more, choosing instead to do just one thing, and do it well? For Simpletext, that one thing is writing.", "Thái");
-        addItemLeft("", "Thái", new ImageIcon(getClass().getResource("/testSetAvatar/IMG_1669.JPG")), new ImageIcon(getClass().getResource("/testSetAvatar/IMG_1669.JPG")));
-        addDate("Today");
-        addItemRight("hello\nerererew\newewe", new ImageIcon(getClass().getResource("/testSetAvatar/PXL_20240418_040128583~3.jpg")));
-        addItemLeft("hello\nerererew\newewe", "Thái", new ImageIcon(getClass().getResource("/testSetAvatar/PXL_20240418_040128583~3.jpg")));
-        addItemRight("Có nhắn tiếng việt được không nhỉ");
-        addItemRight("adu, nhắn đc này, ngol", new ImageIcon(getClass().getResource("/icon/icon_app.png")));
-        addItemFileLeft("Tôi có tài liệu em có lấy không?", "Thái", "TaiLieu", "1 TB");
-        addItemFileRight("", "TaiLieu.pdf", "1 TB");
     }
     private void init(){
         body.setLayout(new MigLayout("fillx", "", "5[]5"));

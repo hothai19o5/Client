@@ -1,6 +1,6 @@
 package swing.BlurHash;
 
-import BlurHash.*;
+import swing.BlurHash.BlurHash.*;
 
 /*
     Copy trên github, blurhash4j

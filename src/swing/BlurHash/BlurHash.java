@@ -1,6 +1,6 @@
 package swing.BlurHash;
 
-import BlurHash.*;
+import swing.BlurHash.BlurHash.*;
 import java.awt.image.BufferedImage;
 
 /*
