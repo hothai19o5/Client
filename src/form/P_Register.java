@@ -1,6 +1,7 @@
 package form;
 
 import event.PublicEvent;
+import model.Model_Register;
 
 /* 
     Phần để login/ register
@@ -119,7 +120,19 @@ public class P_Register extends javax.swing.JPanel {
     }//GEN-LAST:event_txtUserActionPerformed
 
     private void cmdRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdRegisterActionPerformed
-        PublicEvent.getInstance().getEventLogin().register();
+        String user = txtUser.getText().trim();
+        String password = String.valueOf(txtPassword.getPassword());
+        String confirmPassword = String.valueOf(txtRePassword.getPassword());
+        if (user.equals("")) {
+            txtUser.grabFocus();
+        } else if (password.equals("")) {
+            txtPassword.grabFocus();
+        } else if (!password.equals(confirmPassword)) {
+            txtRePassword.grabFocus();
+        } else {
+            Model_Register data = new Model_Register(user, password);
+            PublicEvent.getInstance().getEventLogin().register(data);
+        }
     }//GEN-LAST:event_cmdRegisterActionPerformed
 
     private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed

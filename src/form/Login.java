@@ -2,8 +2,11 @@ package form;
 
 import event.EventLogin;
 import event.PublicEvent;
+import io.socket.client.Ack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Model_Register;
+import service.Service;
 
 /*
     Các chức năng của phần login
@@ -36,8 +39,14 @@ public class Login extends javax.swing.JPanel {
             }
 
             @Override
-            public void register() {
-                System.out.println("Register");
+            public void register(Model_Register data) {
+                Service.getInstance().getClient().emit("register", data.toJSonObject(), new Ack(){
+                    @Override
+                    public void call(Object... os) {
+
+                    }
+                    
+                });
             }
 
             @Override

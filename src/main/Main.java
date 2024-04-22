@@ -11,6 +11,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import swing.ComponentResizer;
+import service.Service;
 
 /**
  *
@@ -37,6 +38,8 @@ public class Main extends javax.swing.JFrame {
         view_Image.setVisible(false);
         home.setVisible(false);
         initEvent();
+        // Kết nối client tới server
+        Service.getInstance().startService();
     }
     // Định nghĩa lại các interface
     private void initEvent(){       
