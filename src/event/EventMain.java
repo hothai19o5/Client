@@ -8,5 +8,5 @@ public interface EventMain {
 
     public void showLoading(boolean show);
 
-    public void init();
+    public void initChat();
 }

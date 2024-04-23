@@ -50,7 +50,7 @@ public class Main extends javax.swing.JFrame {
             }
 
             @Override
-            public void init() {
+            public void initChat() {
                 home.setVisible(true);
             }
         });
@@ -75,7 +75,7 @@ public class Main extends javax.swing.JFrame {
         cmdMinimize = new javax.swing.JButton();
         cmdClose = new javax.swing.JButton();
         body = new javax.swing.JLayeredPane();
-        loading = new component.Loading();
+        loading = new form.Loading();
         login = new form.Login();
         view_Image = new form.View_Image();
         home = new form.Home();
@@ -240,7 +240,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton cmdClose;
     private javax.swing.JButton cmdMinimize;
     private form.Home home;
-    private component.Loading loading;
+    private form.Loading loading;
     private form.Login login;
     private javax.swing.JPanel title;
     private form.View_Image view_Image;

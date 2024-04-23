@@ -1,6 +1,8 @@
 package form;
 
+import event.EventMessage;
 import event.PublicEvent;
+import model.Model_Message;
 import model.Model_Register;
 
 /* 

@@ -1,10 +1,12 @@
 package form;
 
 import event.EventLogin;
+import event.EventMessage;
 import event.PublicEvent;
 import io.socket.client.Ack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Model_Message;
 import model.Model_Register;
 import service.Service;
 
@@ -31,7 +33,7 @@ public class Login extends javax.swing.JPanel {
                         } catch (InterruptedException ex) {
                         }
                         PublicEvent.getInstance().getEventMain().showLoading(false);
-                        PublicEvent.getInstance().getEventMain().init();
+                        PublicEvent.getInstance().getEventMain().initChat();
                         setVisible(false);
                     }
                     
@@ -43,7 +45,11 @@ public class Login extends javax.swing.JPanel {
                 Service.getInstance().getClient().emit("register", data.toJSonObject(), new Ack(){
                     @Override
                     public void call(Object... os) {
-
+//                        if (os.length > 0) {
+//                            Model_Message ms = new Model_Message((boolean) os[0], os[1].toString());
+//                            message.callMessage(ms);
+//                            //  call message back when done register
+//                        }
                     }
                     
                 });
