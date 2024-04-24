@@ -3,13 +3,9 @@ package event;
 public class PublicEvent {
 
     private static PublicEvent instance;
-
     private EventImageView eventImageView;
-    
     private EventChat eventChat;
-    
     private EventLogin eventLogin;
-    
     private EventMain eventMain;
 
     public static PublicEvent getInstance() {
@@ -30,28 +26,28 @@ public class PublicEvent {
     public EventImageView getEventImageView() {
         return eventImageView;
     }
-    
-    public void addEventChat(EventChat event){
+
+    public void addEventChat(EventChat event) {
         this.eventChat = event;
     }
-    
-    public EventChat getEventChat(){
+
+    public EventChat getEventChat() {
         return eventChat;
     }
-    
-    public void addEventLogin(EventLogin event){
+
+    public void addEventLogin(EventLogin event) {
         this.eventLogin = event;
     }
-    
-    public EventLogin getEventLogin(){
+
+    public EventLogin getEventLogin() {
         return this.eventLogin;
     }
-    
-    public void addEventMain(EventMain event){
+
+    public void addEventMain(EventMain event) {
         this.eventMain = event;
     }
-    
-    public EventMain getEventMain(){
+
+    public EventMain getEventMain() {
         return this.eventMain;
     }
 }

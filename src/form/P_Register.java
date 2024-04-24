@@ -120,19 +120,22 @@ public class P_Register extends javax.swing.JPanel {
     private void txtUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUserActionPerformed
-
+    // Xử lý sự kiện khi nhấn nút Register
     private void cmdRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdRegisterActionPerformed
-        String user = txtUser.getText().trim();
-        String password = String.valueOf(txtPassword.getPassword());
-        String confirmPassword = String.valueOf(txtRePassword.getPassword());
+        String user = txtUser.getText().trim();// Lấy tên người dùng
+        String password = String.valueOf(txtPassword.getPassword());// Lấy mật khẩu
+        String confirmPassword = String.valueOf(txtRePassword.getPassword());// Lấy mật khẩu xác nhận
+        // Kiểm tra các trường hợp nhập liệu
         if (user.equals("")) {
-            txtUser.grabFocus();
+            txtUser.grabFocus();// Đặt focus vào trường tên người dùng nếu không nhập
         } else if (password.equals("")) {
-            txtPassword.grabFocus();
+            txtPassword.grabFocus();// Đặt focus vào trường mật khẩu nếu không nhập
         } else if (!password.equals(confirmPassword)) {
-            txtRePassword.grabFocus();
+            txtRePassword.grabFocus();// Đặt focus vào trường xác nhận mật khẩu nếu không khớp
         } else {
+             // Tạo đối tượng Model_Register với dữ liệu người dùng và mật khẩu
             Model_Register data = new Model_Register(user, password);
+            // Gửi sự kiện đăng ký với dữ liệu người dùng
             PublicEvent.getInstance().getEventLogin().register(data);
         }
     }//GEN-LAST:event_cmdRegisterActionPerformed

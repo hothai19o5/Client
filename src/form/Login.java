@@ -16,25 +16,29 @@ import service.Service;
 public class Login extends javax.swing.JPanel {
 
     public Login() {
-        initComponents();
-        init();
+        initComponents(); // Khởi tạo các thành phần giao diện
+        init(); // Khởi tạo các sự kiện và cài đặt ban đầu
     }
 
     private void init(){
+        // Đăng ký sự kiện login, register và chuyển đổi giao diện
         PublicEvent.getInstance().addEventLogin(new EventLogin() {
             @Override
             public void login() {
                 new Thread(new Runnable(){
                     @Override
                     public void run() {
+                        // Hiển thị trạng thái đang tải
                         PublicEvent.getInstance().getEventMain().showLoading(true);
                         try {
-                            Thread.sleep(2000);
+                            Thread.sleep(2000); // Giả lập quá trình đăng nhập trong 2 giây
                         } catch (InterruptedException ex) {
                         }
+                        // Ẩn trạng thái đang tải
                         PublicEvent.getInstance().getEventMain().showLoading(false);
+                        // Khởi tạo giao diện chat
                         PublicEvent.getInstance().getEventMain().initChat();
-                        setVisible(false);
+                        setVisible(false); // Ẩn giao diện đăng nhập
                     }
                     
                 }).start();
@@ -42,6 +46,9 @@ public class Login extends javax.swing.JPanel {
 
             @Override
             public void register(Model_Register data) {
+                // Gửi dữ liệu đăng ký đến server, bên gửi và bên nhận phải cùng tên sự kiện, kiểu dữ liệu truyền
+                // bug gặp phải là do không cùng kiểu Model_Register
+                
                 Service.getInstance().getClient().emit("register", data.toJSonObject(), new Ack(){
                     @Override
                     public void call(Object... os) {
@@ -57,18 +64,20 @@ public class Login extends javax.swing.JPanel {
 
             @Override
             public void goRegister() {
-                slide.show(1);
+                slide.show(1); // Hiển thị giao diện đăng ký
             }
 
             @Override
             public void goLogin() {
-                slide.show(0);
+                slide.show(0); // Hiển thị giao diện đăng nhập
             }
         });
-        P_Login login = new P_Login();
-        P_Register register = new P_Register();
-        slide.init(login, register);
+        P_Login login = new P_Login(); // Khởi tạo giao diện đăng nhập
+        P_Register register = new P_Register(); // Khởi tạo giao diện đăng ký
+        slide.init(login, register); // Khởi tạo các giao diện slide
     }
+    
+    // Các thành phần giao diện được tạo tự động bởi IDE
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
