@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import javax.annotation.processing.Messager;
 import model.Model_Message;
 import model.Model_Register;
+import model.Model_User_Account;
 import service.Service;
 
 /*
@@ -57,6 +58,10 @@ public class Login extends javax.swing.JPanel {
                             Model_Message ms = new Model_Message((boolean) os[0], os[1].toString());
                             //  call message back when done register
                             message.callMessage(ms);
+                            if(ms.isAction()){
+                                Model_User_Account user = new Model_User_Account(os[2]);
+                                Service.getInstance().setUser(user);
+                            }
                         }
                     }
                     

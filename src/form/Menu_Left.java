@@ -1,6 +1,11 @@
 package form;
 
 import component.Item_People;
+import event.EventMenuLeft;
+import event.PublicEvent;
+import java.util.ArrayList;
+import java.util.List;
+import model.Model_User_Account;
 import net.miginfocom.swing.MigLayout;
 import swing.ScrollBar;
 
@@ -15,19 +20,33 @@ public class Menu_Left extends javax.swing.JPanel {
         init();
     }
 
+    private List<Model_User_Account> userAccount;
+
     private void init() {
         // Đoạn này để set cái JScrollBar thành cái ScrollBar mới
         sp.setVerticalScrollBar(new ScrollBar());
         // Đoạn này để set cái menuList theo cái migLayout
         menuList.setLayout(new MigLayout("fillx", "0[]0", "0[]0"));
+        userAccount = new ArrayList<>();
+        PublicEvent.getInstance().addEventMenuLeft(new EventMenuLeft() {
+            @Override
+            public void newUser(List<Model_User_Account> users) {
+                for (Model_User_Account mua : users) {
+                    menuList.add(new Item_People(mua.getUserName()), "wrap");
+                    menuList.repaint();
+                    menuList.revalidate();
+                }
+            }
+        });
+
         // In ra menu left danh sách người
         showPeople();
     }
 
     private void showPeople() {
         menuList.removeAll();
-        for (int i = 0; i < 100; i++) {
-            menuList.add(new Item_People("People" + i), "wrap");
+        for (Model_User_Account mua : userAccount) {
+            menuList.add(new Item_People(mua.getUserName()), "wrap");
         }
         menuList.repaint();
         menuList.revalidate();
