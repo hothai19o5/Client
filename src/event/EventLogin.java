@@ -1,13 +1,15 @@
 package event;
 
+import model.Model_Login;
 import model.Model_Register;
 
-/*
-    Đăng nhập, đăng kí
- */
 public interface EventLogin {
-    public void login();
+
+    public void login(Model_Login data);
+
     public void register(Model_Register data, EventMessage mes);
+
     public void goRegister();
+
     public void goLogin();
 }

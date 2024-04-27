@@ -25,20 +25,24 @@ public class Menu_Left extends javax.swing.JPanel {
     private void init() {
         // Đoạn này để set cái JScrollBar thành cái ScrollBar mới
         sp.setVerticalScrollBar(new ScrollBar());
-        // Đoạn này để set cái menuList theo cái migLayout
+        // Đoạn này để set cái menuList theo cái migLayout, fillx là để nó dãn rộng theo chiều ngang
         menuList.setLayout(new MigLayout("fillx", "0[]0", "0[]0"));
+        // Khởi tạo danh sách `userAccount` để lưu trữ danh sách các tài khoản người dùng.
         userAccount = new ArrayList<>();
+        // Đăng ký một sự kiện để cập nhật menu bên trái khi có người dùng mới được thêm vào.
         PublicEvent.getInstance().addEventMenuLeft(new EventMenuLeft() {
             @Override
             public void newUser(List<Model_User_Account> users) {
+                // Thêm mỗi người dùng mới vào `menuList` dưới dạng các mục (Item_People).
                 for (Model_User_Account mua : users) {
                     menuList.add(new Item_People(mua.getUserName()), "wrap");
+                    // Cập nhật lại giao diện.
                     menuList.repaint();
+                    // Xác nhận bố cục mới.
                     menuList.revalidate();
                 }
             }
         });
-
         // In ra menu left danh sách người
         showPeople();
     }
