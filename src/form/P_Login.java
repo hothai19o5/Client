@@ -1,10 +1,8 @@
 package form;
 
 import event.PublicEvent;
+import model.Model_Login;
 
-/* 
-    Phần để login/ register
- */
 public class P_Login extends javax.swing.JPanel {
 
     public P_Login() {
@@ -107,7 +105,7 @@ public class P_Login extends javax.swing.JPanel {
     }//GEN-LAST:event_cmdRegisterActionPerformed
 
     private void cmdLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdLoginActionPerformed
-        PublicEvent.getInstance().getEventLogin().login();
+        PublicEvent.getInstance().getEventLogin().login(new Model_Login(txtUser.getText(), String.valueOf(txtPassword.getPassword())));
     }//GEN-LAST:event_cmdLoginActionPerformed
 
 

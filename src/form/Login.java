@@ -7,14 +7,12 @@ import io.socket.client.Ack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.processing.Messager;
+import model.Model_Login;
 import model.Model_Message;
 import model.Model_Register;
 import model.Model_User_Account;
 import service.Service;
 
-/*
-    Các chức năng của phần login
- */
 public class Login extends javax.swing.JPanel {
 
     public Login() {
@@ -22,27 +20,38 @@ public class Login extends javax.swing.JPanel {
         init(); // Khởi tạo các sự kiện và cài đặt ban đầu
     }
 
-    private void init(){
+    private void init() {
         // Đăng ký sự kiện login, register và chuyển đổi giao diện
         PublicEvent.getInstance().addEventLogin(new EventLogin() {
             @Override
-            public void login() {
-                new Thread(new Runnable(){
+            public void login(Model_Login data) {
+                new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // Hiển thị trạng thái đang tải
+                        // Hiển thị trạng thái loading   
                         PublicEvent.getInstance().getEventMain().showLoading(true);
-                        try {
-                            Thread.sleep(2000); // Giả lập quá trình đăng nhập trong 2 giây
-                        } catch (InterruptedException ex) {
-                        }
-                        // Ẩn trạng thái đang tải
-                        PublicEvent.getInstance().getEventMain().showLoading(false);
-                        // Khởi tạo giao diện chat
-                        PublicEvent.getInstance().getEventMain().initChat();
-                        setVisible(false); // Ẩn giao diện đăng nhập
+                        // Gửi dữ liệu sang server
+                        Service.getInstance().getClient().emit("login", data.toJSONObject(), new Ack() {
+                            @Override   
+                            public void call(Object... os) {
+                                if (os.length > 0) {
+                                    Boolean action = (Boolean) os[0];
+                                    if (action) {
+                                        Service.getInstance().setUser(new Model_User_Account(os[1]));
+                                        // Ẩn trạng thái loading
+                                        PublicEvent.getInstance().getEventMain().showLoading(false);
+                                        // Khởi tạo giao diện chat
+                                        PublicEvent.getInstance().getEventMain().initChat();
+                                    } else {
+                                        PublicEvent.getInstance().getEventMain().showLoading(false);
+                                    }
+                                } else {
+                                    PublicEvent.getInstance().getEventMain().showLoading(false);
+                                }
+                            }
+                        });
                     }
-                    
+
                 }).start();
             }
 
@@ -50,21 +59,21 @@ public class Login extends javax.swing.JPanel {
             public void register(Model_Register data, EventMessage message) {
                 // Gửi dữ liệu đăng ký đến server, bên gửi và bên nhận phải cùng tên sự kiện, kiểu dữ liệu truyền
                 // bug gặp phải là do không cùng kiểu Model_Register
-                
-                Service.getInstance().getClient().emit("register", data.toJSonObject(), new Ack(){
+
+                Service.getInstance().getClient().emit("register", data.toJSonObject(), new Ack() {
                     @Override
                     public void call(Object... os) {
                         if (os.length > 0) {
                             Model_Message ms = new Model_Message((boolean) os[0], os[1].toString());
-                            //  call message back when done register
-                            message.callMessage(ms);
-                            if(ms.isAction()){
+                            if (ms.isAction()) {
                                 Model_User_Account user = new Model_User_Account(os[2]);
                                 Service.getInstance().setUser(user);
                             }
+                            //  call message back when done register
+                            message.callMessage(ms);
                         }
                     }
-                    
+
                 });
             }
 
@@ -82,7 +91,7 @@ public class Login extends javax.swing.JPanel {
         P_Register register = new P_Register(); // Khởi tạo giao diện đăng ký
         slide.init(login, register); // Khởi tạo các giao diện slide
     }
-    
+
     // Các thành phần giao diện được tạo tự động bởi IDE
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
