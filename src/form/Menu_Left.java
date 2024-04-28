@@ -3,16 +3,13 @@ package form;
 import component.Item_People;
 import event.EventMenuLeft;
 import event.PublicEvent;
+import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
 import model.Model_User_Account;
 import net.miginfocom.swing.MigLayout;
 import swing.ScrollBar;
 
-/**
- *
- * @author Ho Xuan Thai
- */
 public class Menu_Left extends javax.swing.JPanel {
 
     public Menu_Left() {
@@ -35,13 +32,54 @@ public class Menu_Left extends javax.swing.JPanel {
             public void newUser(List<Model_User_Account> users) {
                 // Thêm mỗi người dùng mới vào `menuList` dưới dạng các mục (Item_People).
                 for (Model_User_Account mua : users) {
-                    menuList.add(new Item_People(mua.getUserName()), "wrap");
+                    menuList.add(new Item_People(mua), "wrap");
                     // Cập nhật lại giao diện.
                     menuList.repaint();
                     // Xác nhận bố cục mới.
                     menuList.revalidate();
                 }
             }
+
+            @Override
+            public void userConnect(int userID) {
+                for(Model_User_Account mua : userAccount){
+                    if(mua.getUserID() == userID){
+                        mua.setStatus(true);
+                        PublicEvent.getInstance().getEventMain().updateUser(mua);
+                        break;
+                    }
+                }
+                if(menuMessage.isSelected()){
+                    for(Component com : menuList.getComponents()){
+                        Item_People item = (Item_People) com;
+                        if(item.getUser().getUserID() == userID){
+                            item.updateStatus();
+                            break;
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void userDisconnect(int userID) {
+                for(Model_User_Account mua : userAccount){
+                    if(mua.getUserID() == userID){
+                        mua.setStatus(false);
+                        PublicEvent.getInstance().getEventMain().updateUser(mua);
+                        break;
+                    }
+                }
+                if(menuMessage.isSelected()){
+                    for(Component com : menuList.getComponents()){
+                        Item_People item = (Item_People) com;
+                        if(item.getUser().getUserID() == userID){
+                            item.updateStatus();
+                            break;
+                        }
+                    }
+                }
+            }
+            
         });
         // In ra menu left danh sách người
         showPeople();
@@ -50,7 +88,7 @@ public class Menu_Left extends javax.swing.JPanel {
     private void showPeople() {
         menuList.removeAll();
         for (Model_User_Account mua : userAccount) {
-            menuList.add(new Item_People(mua.getUserName()), "wrap");
+            menuList.add(new Item_People(null), "wrap");
         }
         menuList.repaint();
         menuList.revalidate();
@@ -59,7 +97,7 @@ public class Menu_Left extends javax.swing.JPanel {
     private void showGroup() {
         menuList.removeAll();
         for (int i = 0; i < 5; i++) {
-            menuList.add(new Item_People("Group" + i), "wrap");
+            menuList.add(new Item_People(null), "wrap");
         }
         menuList.repaint();
         menuList.revalidate();
@@ -68,7 +106,7 @@ public class Menu_Left extends javax.swing.JPanel {
     private void showBox() {
         menuList.removeAll();
         for (int i = 0; i < 10; i++) {
-            menuList.add(new Item_People("Box" + i), "wrap");
+            menuList.add(new Item_People(null), "wrap");
         }
         menuList.repaint();
         menuList.revalidate();

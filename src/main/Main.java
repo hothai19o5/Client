@@ -10,6 +10,7 @@ import java.awt.Toolkit;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import model.Model_User_Account;
 import swing.ComponentResizer;
 import service.Service;
 
@@ -55,6 +56,18 @@ public class Main extends javax.swing.JFrame {
                 login.setVisible(false);
                 Service.getInstance().getClient().emit("list_user", Service.getInstance().getUser().getUserID());
             }
+
+            @Override
+            public void selectUser(Model_User_Account user) {
+                home.setUser(user);
+            }
+
+            @Override
+            public void updateUser(Model_User_Account user) {
+                home.updateUser(user);
+            }
+            
+            
         });
         PublicEvent.getInstance().addEventImageView(new EventImageView(){
             @Override
@@ -165,7 +178,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(backgroundLayout.createSequentialGroup()
                 .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(body)
+                .addComponent(body, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
                 .addContainerGap())
         );
 

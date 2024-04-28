@@ -1,28 +1,54 @@
 package component;
 
 import java.awt.Color;
+import model.Model_User_Account;
 
 /*
     Đây là phần chứa tên và trạng thái hoạt động
  */
 public class Chat_Title extends javax.swing.JPanel {
 
+    private Model_User_Account user;
+
+    public Model_User_Account getUser() {
+        return user;
+    }
+
     public Chat_Title() {
         initComponents();
     }
 
     // Cài đặt tên người dùng
-    public void setUserName(String userName) {
-        lbName.setText(userName);
+    public void setUserName(Model_User_Account user) {
+        this.user = user;
+        lbName.setText(user.getUserName());
+        if (user.isStatus()) {
+            statusActive();
+        } else {
+            lbStatus.setText("Offline");
+            lbStatus.setForeground(new java.awt.Color(94, 97, 102));
+        }
+    }
+    // Nếu hoạt động thì hiện màu xanh,....
+    public void updateUser(Model_User_Account user) {
+        if (this.user == user) {
+            lbName.setText(user.getUserName());
+            if (user.isStatus()) {
+                statusActive();
+            } else {
+                lbStatus.setText("Offline");
+                lbStatus.setForeground(new java.awt.Color(94, 97, 102));
+            }
+        }
     }
 
     // Trạng thái hoạt động
-    public void statusActive() {
+    private void statusActive() {
         lbStatus.setText("Active now");
         lbStatus.setForeground(new java.awt.Color(0, 204, 51));
     }
 
-    public void setStatusText(String text) {
+    private void setStatusText(String text) {
         lbStatus.setText(text);
         lbStatus.setForeground(new Color(158, 158, 158));
     }

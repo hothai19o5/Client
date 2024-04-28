@@ -12,6 +12,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import model.Model_User_Account;
 import net.miginfocom.swing.MigLayout;
 import swing.JIMSendTextPane;
 import swing.ScrollBar;
@@ -21,12 +22,23 @@ import swing.ScrollBar;
  */
 public class Chat_Bottom extends javax.swing.JPanel {
 
+    private Model_User_Account user;
+
+    public Model_User_Account getUser() {
+        return user;
+    }
+
+    public void setUser(Model_User_Account user) {
+        this.user = user;
+    }
+
     public Chat_Bottom() {
         initComponents();
         init();
     }
-    private void init(){
-        setLayout(new MigLayout("fillx, filly", "3[fill]0[]3","3[fill]3"));
+
+    private void init() {
+        setLayout(new MigLayout("fillx, filly", "3[fill]0[]3", "3[fill]3"));
         JScrollPane scroll = new JScrollPane();
         scroll.setBorder(null); // bỏ cái viền của chatBottom
         scroll.setVerticalScrollBar(new ScrollBar()); // sử dụng cái scrollBar của mình
@@ -44,7 +56,7 @@ public class Chat_Bottom extends javax.swing.JPanel {
         // Chỗ để nhét cái sendButton vào
         JPanel panel = new JPanel();
         panel.setLayout(new MigLayout("filly", "0[]0", "0[bottom]0"));
-        panel.setPreferredSize(new Dimension(30,28));
+        panel.setPreferredSize(new Dimension(30, 28));
         panel.setBackground(new Color(239, 239, 239));
         // viền, nền, trỏ chuột, icon của sendButton
         JButton cmd = new JButton();
@@ -57,12 +69,12 @@ public class Chat_Bottom extends javax.swing.JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String text = txt.getText().trim();
-                if(!text.equals("")){
+                if (!text.equals("")) {
                     PublicEvent.getInstance().getEventChat().sendMessage(text);
                     txt.setText("");
-                    txt.grabFocus(); // thành phần chính nhập liệu
+                    txt.grabFocus(); // trỏ lại về txt
                     refresh();
-                }else{
+                } else {
                     txt.grabFocus();
                 }
             }
@@ -70,7 +82,8 @@ public class Chat_Bottom extends javax.swing.JPanel {
         panel.add(cmd);
         add(panel);
     }
-    private void refresh(){
+
+    private void refresh() {
         revalidate();
     }
 
