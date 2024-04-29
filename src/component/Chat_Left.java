@@ -2,10 +2,8 @@ package component;
 
 import java.awt.Color;
 import javax.swing.Icon;
+import java.time.LocalTime;
 
-/*
-    Phần chat mà không hiện ảnh đại diện ở bên cạnh, chat 1-1
- */
 public class Chat_Left extends javax.swing.JLayeredPane {
     // Contructor
     public Chat_Left() {
@@ -30,7 +28,10 @@ public class Chat_Left extends javax.swing.JLayeredPane {
     }
     // Thời điểm gửi tin nhắn
     public void setTime(){
-        txt.setTime("07:52 AM");
+        LocalTime currentTime = LocalTime.now();
+        int hour = currentTime.getHour();
+        int minute = currentTime.getMinute();
+        txt.setTime(hour + ":" + minute);
     }
 
     @SuppressWarnings("unchecked")

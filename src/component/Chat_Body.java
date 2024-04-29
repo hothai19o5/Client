@@ -13,9 +13,6 @@ import model.Model_Send_Message;
 import net.miginfocom.swing.MigLayout;
 import swing.ScrollBar;
 
-/*
- * @author admin
- */
 public class Chat_Body extends javax.swing.JPanel {
 
     public Chat_Body() {
@@ -100,6 +97,11 @@ public class Chat_Body extends javax.swing.JPanel {
         body.add(item, "wrap, al center");
         body.repaint();
         body.revalidate();
+    }
+    public void clearChat(){
+        body.removeAll();
+        repaint();
+        revalidate();
     }
     // Tự động cuộn tới cuối cùng
     private void scrollToBottom() {

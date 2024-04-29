@@ -10,9 +10,6 @@ import model.Model_Send_Message;
 import model.Model_User_Account;
 import net.miginfocom.swing.MigLayout;
 
-/*
-    
- */
 public class Chat extends javax.swing.JPanel {
     private Chat_Title chatTitle;
     private Chat_Body chatBody;
@@ -29,12 +26,16 @@ public class Chat extends javax.swing.JPanel {
         PublicEvent.getInstance().addEventChat(new EventChat() {
             @Override
             public void sendMessage(Model_Send_Message data) {
+                // Khi gửi tin nhắn thì thêm tin nhắn vào bên phải
                 chatBody.addItemRight(data);
             }
 
             @Override
             public void receiveMessage(Model_Receive_Message data) {
-                chatBody.addItemLeft(data);
+                if(data.getFromUserID() == chatTitle.getUser().getUserID()){
+                    // Nếu người gửi trùng với người mà mình đang click chuột đến thì mới hiện tin nhắn 
+                    chatBody.addItemLeft(data);
+                }
             }
             
         });
@@ -43,10 +44,11 @@ public class Chat extends javax.swing.JPanel {
         // "h ::50%" là để cho đoạn chatBottom có thể mở rộng lớn nhất là 50% độ dài app
         add(chatBottom, "h ::50%");
     }
-    
+    // Khi click chọn vào 1 user thì các thành phần title, bottom, body phải thay đổi
     public void setUser(Model_User_Account user){
         chatTitle.setUserName(user);
         chatBottom.setUser(user);
+        chatBody.clearChat();
     }
     
     public void updateUser(Model_User_Account user){

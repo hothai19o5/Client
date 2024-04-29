@@ -1,6 +1,7 @@
 package component;
 
 import java.awt.Color;
+import java.time.LocalTime;
 import javax.swing.Icon;
 
 /*
@@ -31,7 +32,10 @@ public class Chat_Right extends javax.swing.JLayeredPane {
     }
     // Thời điểm gửi tin nhắn
     public void setTime(){
-        txt.setTime("07:52 AM");
+        LocalTime currentTime = LocalTime.now();
+        int hour = currentTime.getHour();
+        int minute = currentTime.getMinute();
+        txt.setTime(hour + ":" + minute);
     }
     public void setFile(String fileName, String fileSize){
         txt.setFile(fileName, fileSize);

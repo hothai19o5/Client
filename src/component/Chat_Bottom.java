@@ -47,7 +47,7 @@ public class Chat_Bottom extends javax.swing.JPanel {
         txt.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {// Khi người dùng gõ phím
-                refresh();// Làm mới bố cục để cập nhật kích thước
+                revalidate();// Làm mới bố cục để cập nhật kích thước
             }
         });
         txt.setHintText("Write Message Here...");// Đặt gợi ý khi khung nhập văn bản trống
@@ -72,10 +72,12 @@ public class Chat_Bottom extends javax.swing.JPanel {
                 if (!text.equals("")) {// Nếu nội dung không rỗng
                     // Tạo tin nhắn mới
                     Model_Send_Message data = new Model_Send_Message(Service.getInstance().getUser().getUserID(), user.getUserID(), text);
-                    PublicEvent.getInstance().getEventChat().sendMessage(data); // Gửi tin nhắn
+                    // Phát sự kiện có tên "send_to_user", cùng với dữ liệu ở dạng JSON
+                    Service.getInstance().getClient().emit("send_to_user", data.toJsonObject());
+                    PublicEvent.getInstance().getEventChat().sendMessage(data); // Thêm đoạn tin nhắn này vào bên phải khung chat
                     txt.setText("");// Xóa nội dung trong khung nhập văn bản
                     txt.grabFocus(); // trỏ lại về txt
-                    refresh(); // Làm mới bố cục
+                    revalidate(); // Làm mới bố cục
                 } else {// Nếu nội dung rỗng, chỉ cần đặt con trỏ vào khung nhập văn bản
                     txt.grabFocus();
                 }
@@ -84,14 +86,14 @@ public class Chat_Bottom extends javax.swing.JPanel {
         panel.add(cmd);// Thêm nút gửi vào panel
         add(panel);// Thêm panel vào
     }
-    // Phương thức gửi tin nhắn
-    private void send(Model_Send_Message data) {
-        Service.getInstance().getClient().emit("send_to_user", data.toJsonObject());
-    }
-    // Phương thức làm mới bố cục để cập nhật các thay đổi
-    private void refresh() {
-        revalidate();
-    }
+//    // Phương thức gửi tin nhắn ( Không cần, cho thẳng vào luôn )
+//    private void send(Model_Send_Message data) {
+//        Service.getInstance().getClient().emit("send_to_user", data.toJsonObject());
+//    }
+//    // Phương thức làm mới bố cục để cập nhật các thay đổi ( Không cần, cho thẳng vào luôn )
+//    private void refresh() {
+//        revalidate();
+//    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

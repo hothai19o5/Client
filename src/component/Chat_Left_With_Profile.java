@@ -1,6 +1,7 @@
 package component;
 
 import java.awt.Color;
+import java.time.LocalTime;
 import javax.swing.Icon;
 
 /*
@@ -39,7 +40,10 @@ public class Chat_Left_With_Profile extends javax.swing.JLayeredPane {
     }
     // Thời điểm gửi tin nhắn
     public void setTime(){
-        txt.setTime("07:52 AM");
+        LocalTime currentTime = LocalTime.now();
+        int hour = currentTime.getHour();
+        int minute = currentTime.getMinute();
+        txt.setTime(hour + ":" + minute);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

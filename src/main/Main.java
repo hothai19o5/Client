@@ -54,6 +54,7 @@ public class Main extends javax.swing.JFrame {
             public void initChat() {
                 home.setVisible(true);
                 login.setVisible(false);
+                // Phát sự kiện có tên là "list_user", cùng với dữ liệu là ID của người dùng hiện tại, để trả về một list_user mà không có người dùng hiện tại
                 Service.getInstance().getClient().emit("list_user", Service.getInstance().getUser().getUserID());
             }
 
