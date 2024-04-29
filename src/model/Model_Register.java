@@ -34,10 +34,11 @@ public class Model_Register {
         this.userName = userName;
         this.password = password;
     }
-    
+    // Dùng định dạng json để truyền dữ liệu
     public JSONObject toJSonObject(){
         try {
             JSONObject json = new JSONObject();
+            // Tạo các cặp khóa - dữ liệu
             json.put("userName", userName);
             json.put("password", password);
             return json;

@@ -8,6 +8,8 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+import model.Model_Receive_Message;
+import model.Model_Send_Message;
 import net.miginfocom.swing.MigLayout;
 import swing.ScrollBar;
 
@@ -26,17 +28,15 @@ public class Chat_Body extends javax.swing.JPanel {
         sp.getVerticalScrollBar().setBackground(new Color(239, 239, 239));
     }
     // Thêm tin nhắn vào bên trái ( người khác nhắn tới )
-    public void addItemLeft(String text, String user, Icon... images){
-        Chat_Left_With_Profile item = new Chat_Left_With_Profile();
-        item.setText(text);
-        item.setImage(images);
+    public void addItemLeft(Model_Receive_Message data){
+        Chat_Left item = new Chat_Left();
+        item.setText(data.getText());
         item.setTime();
-        item.setUserProfile(user);
         // Đoạn này là để cho cái đoạn tin nhắn có thể xuống dòng 
         body.add(item, "wrap, w 100::80%");
         // ::80% set max with 80%
-        body.repaint();
-        body.revalidate();
+        repaint();
+        revalidate();
     }
     // Thêm tin nhắn vào bên trái ( người khác nhắn tới ), ảnh đã mã hóa
     public void addItemLeft(String text, String user, String[] images){
@@ -52,19 +52,17 @@ public class Chat_Body extends javax.swing.JPanel {
         body.revalidate();
     }
     // Thêm tin nhắn vào bên phải ( mình gửi)
-    public void addItemRight(String text, Icon... images){
+    public void addItemRight(Model_Send_Message data){
         Chat_Right item = new Chat_Right();
         // text
-        item.setText(text);
-        // ảnh
-        item.setImage(images);
+        item.setText(data.getText());
         // thời điểm gửi
         item.setTime();
         // Đoạn này là để cho cái đoạn tin nhắn có thể xuống dòng 
         body.add(item, "wrap, al right, w 100::80%");
         // ::80% set max with 80%
-        body.repaint();
-        body.revalidate();
+        repaint();
+        revalidate();
         scrollToBottom();
     }
     // Thêm tin nhắn vào bên trái ( người khác nhắn tới ), có gửi file

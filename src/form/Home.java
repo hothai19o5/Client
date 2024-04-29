@@ -3,10 +3,6 @@ package form;
 import model.Model_User_Account;
 import net.miginfocom.swing.MigLayout;
 
-/**
- *
- * @author Ho Xuan Thai 20225393
- */
 public class Home extends javax.swing.JLayeredPane {
 
     private Chat chat;

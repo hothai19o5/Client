@@ -9,6 +9,8 @@ import java.awt.RenderingHints;
 
 public class ActiveStatus extends Component {
 
+    private boolean active;
+    
     public boolean isActive() {
         return active;
     }
@@ -18,8 +20,6 @@ public class ActiveStatus extends Component {
         repaint();
     }
 
-    private boolean active;
-    
     public ActiveStatus() {
         setPreferredSize(new Dimension(8, 8));
     }

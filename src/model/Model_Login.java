@@ -31,10 +31,11 @@ public class Model_Login {
     public void setPassword(String password) {
         this.password = password;
     }
-
+    // Dùng định dạng json để truyền dữ liệu
     public JSONObject toJSONObject() {
         try {
             JSONObject obj = new JSONObject();
+            // Tạo các cặp khóa - dữ liệu
             obj.put("userName", userName);
             obj.put("password", password);
             return obj;

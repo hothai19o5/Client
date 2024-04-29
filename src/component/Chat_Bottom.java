@@ -12,17 +12,17 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import model.Model_Send_Message;
 import model.Model_User_Account;
 import net.miginfocom.swing.MigLayout;
+import service.Service;
 import swing.JIMSendTextPane;
 import swing.ScrollBar;
 
-/*
-    Phần này để nhập tin nhắn, gửi icon, gửi file, gửi ảnh
- */
+//    Phần này để nhập tin nhắn, gửi icon, gửi file, gửi ảnh
 public class Chat_Bottom extends javax.swing.JPanel {
 
-    private Model_User_Account user;
+    private Model_User_Account user;// Đối tượng người dùng đại diện cho người nhận tin nhắn
 
     public Model_User_Account getUser() {
         return user;
@@ -33,27 +33,27 @@ public class Chat_Bottom extends javax.swing.JPanel {
     }
 
     public Chat_Bottom() {
-        initComponents();
-        init();
+        initComponents();// Khởi tạo các thành phần giao diện
+        init();// Thực hiện các bước khởi tạo khác
     }
 
     private void init() {
         setLayout(new MigLayout("fillx, filly", "3[fill]0[]3", "3[fill]3"));
         JScrollPane scroll = new JScrollPane();
-        scroll.setBorder(null); // bỏ cái viền của chatBottom
+        scroll.setBorder(null); // bỏ cái viền của vùng cuộn
         scroll.setVerticalScrollBar(new ScrollBar()); // sử dụng cái scrollBar của mình
-        JIMSendTextPane txt = new JIMSendTextPane();
+        JIMSendTextPane txt = new JIMSendTextPane();// Khung nhập văn bản tùy chỉnh
         // khi nhắn tin phần chatBottom có thể tự mở rộng
         txt.addKeyListener(new KeyAdapter() {
             @Override
-            public void keyTyped(KeyEvent e) {
-                refresh();
+            public void keyTyped(KeyEvent e) {// Khi người dùng gõ phím
+                refresh();// Làm mới bố cục để cập nhật kích thước
             }
         });
-        txt.setHintText("Write Message Here...");
+        txt.setHintText("Write Message Here...");// Đặt gợi ý khi khung nhập văn bản trống
         scroll.setViewportView(txt);
-        add(scroll, "w 100%");
-        // Chỗ để nhét cái sendButton vào
+        add(scroll, "w 100%");// Thêm vùng cuộn vào bố cục
+        // Panel để nhét cái sendButton vào
         JPanel panel = new JPanel();
         panel.setLayout(new MigLayout("filly", "0[]0", "0[bottom]0"));
         panel.setPreferredSize(new Dimension(30, 28));
@@ -67,22 +67,28 @@ public class Chat_Bottom extends javax.swing.JPanel {
         // chức năng của sendButton
         cmd.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                String text = txt.getText().trim();
-                if (!text.equals("")) {
-                    PublicEvent.getInstance().getEventChat().sendMessage(text);
-                    txt.setText("");
+            public void actionPerformed(ActionEvent e) {// Khi nút gửi được nhấn
+                String text = txt.getText().trim();// Lấy nội dung từ khung nhập văn bản, bỏ đoạn trắng 2 đầu
+                if (!text.equals("")) {// Nếu nội dung không rỗng
+                    // Tạo tin nhắn mới
+                    Model_Send_Message data = new Model_Send_Message(Service.getInstance().getUser().getUserID(), user.getUserID(), text);
+                    PublicEvent.getInstance().getEventChat().sendMessage(data); // Gửi tin nhắn
+                    txt.setText("");// Xóa nội dung trong khung nhập văn bản
                     txt.grabFocus(); // trỏ lại về txt
-                    refresh();
-                } else {
+                    refresh(); // Làm mới bố cục
+                } else {// Nếu nội dung rỗng, chỉ cần đặt con trỏ vào khung nhập văn bản
                     txt.grabFocus();
                 }
             }
         });
-        panel.add(cmd);
-        add(panel);
+        panel.add(cmd);// Thêm nút gửi vào panel
+        add(panel);// Thêm panel vào
     }
-
+    // Phương thức gửi tin nhắn
+    private void send(Model_Send_Message data) {
+        Service.getInstance().getClient().emit("send_to_user", data.toJsonObject());
+    }
+    // Phương thức làm mới bố cục để cập nhật các thay đổi
     private void refresh() {
         revalidate();
     }

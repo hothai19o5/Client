@@ -3,9 +3,6 @@ package component;
 import java.awt.Color;
 import model.Model_User_Account;
 
-/*
-    Đây là phần chứa tên và trạng thái hoạt động
- */
 public class Chat_Title extends javax.swing.JPanel {
 
     private Model_User_Account user;
@@ -25,8 +22,7 @@ public class Chat_Title extends javax.swing.JPanel {
         if (user.isStatus()) {
             statusActive();
         } else {
-            lbStatus.setText("Offline");
-            lbStatus.setForeground(new java.awt.Color(94, 97, 102));
+            setStatusText("Offline");
         }
     }
     // Nếu hoạt động thì hiện màu xanh,....
@@ -36,8 +32,7 @@ public class Chat_Title extends javax.swing.JPanel {
             if (user.isStatus()) {
                 statusActive();
             } else {
-                lbStatus.setText("Offline");
-                lbStatus.setForeground(new java.awt.Color(94, 97, 102));
+                setStatusText("Offline");
             }
         }
     }

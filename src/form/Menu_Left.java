@@ -12,12 +12,12 @@ import swing.ScrollBar;
 
 public class Menu_Left extends javax.swing.JPanel {
 
+    private List<Model_User_Account> userAccount;
+
     public Menu_Left() {
         initComponents();
         init();
     }
-
-    private List<Model_User_Account> userAccount;
 
     private void init() {
         // Đoạn này để set cái JScrollBar thành cái ScrollBar mới
@@ -32,6 +32,8 @@ public class Menu_Left extends javax.swing.JPanel {
             public void newUser(List<Model_User_Account> users) {
                 // Thêm mỗi người dùng mới vào `menuList` dưới dạng các mục (Item_People).
                 for (Model_User_Account mua : users) {
+                    // Thêm người dùng mới vào danh sách
+                    userAccount.add(mua);
                     menuList.add(new Item_People(mua), "wrap");
                     // Cập nhật lại giao diện.
                     menuList.repaint();
@@ -208,21 +210,23 @@ public class Menu_Left extends javax.swing.JPanel {
     }//GEN-LAST:event_menuMessageActionPerformed
 
     private void menuGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuGroupActionPerformed
-        if (!menuGroup.isSelected()) {
-            menuMessage.setSelected(false);
-            menuGroup.setSelected(true);
-            menuBox.setSelected(false);
-            showGroup();
-        }
+//        if (!menuGroup.isSelected()) {
+//            menuMessage.setSelected(false);
+//            menuGroup.setSelected(true);
+//            menuBox.setSelected(false);
+//            showGroup();
+//        }
+//          Tính năng này cập nhật sau
     }//GEN-LAST:event_menuGroupActionPerformed
 
     private void menuBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBoxActionPerformed
-        if (!menuBox.isSelected()) {
-            menuMessage.setSelected(false);
-            menuGroup.setSelected(false);
-            menuBox.setSelected(true);
-            showBox();
-        }
+//        if (!menuBox.isSelected()) {
+//            menuMessage.setSelected(false);
+//            menuGroup.setSelected(false);
+//            menuBox.setSelected(true);
+//            showBox();
+//        }
+//          Tính năng này cập nhật sau
     }//GEN-LAST:event_menuBoxActionPerformed
 
 

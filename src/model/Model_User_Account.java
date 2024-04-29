@@ -8,10 +8,11 @@ public class Model_User_Account {
     private String gender;
     private String image;
     private boolean status;
-
+    // Dùng định dạng json để truyền dữ liệu
     public Model_User_Account(Object json) {
         JSONObject obj = (JSONObject) json;
         try {
+            // Lấy dữ liệu từ khóa 
             this.userID = obj.getInt("userID");
             this.userName = obj.getString("userName");
             this.gender = obj.getString("gender");
@@ -68,5 +69,5 @@ public class Model_User_Account {
     public void setStatus(boolean status) {
         this.status = status;
     }
-    
+
 }
