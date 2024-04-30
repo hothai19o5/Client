@@ -22,6 +22,10 @@ import swing.ScrollBar;
 //    Phần này để nhập tin nhắn, gửi icon, gửi file, gửi ảnh
 public class Chat_Bottom extends javax.swing.JPanel {
 
+    private Panel_More panelMore;
+
+    private MigLayout mig;
+
     private Model_User_Account user;// Đối tượng người dùng đại diện cho người nhận tin nhắn
 
     public Model_User_Account getUser() {
@@ -38,7 +42,8 @@ public class Chat_Bottom extends javax.swing.JPanel {
     }
 
     private void init() {
-        setLayout(new MigLayout("fillx, filly", "3[fill]0[]3", "3[fill]3"));
+        mig = new MigLayout("fillx, filly", "3[fill]0[]3", "3[fill]3[]0");
+        setLayout(mig);
         JScrollPane scroll = new JScrollPane();
         scroll.setBorder(null); // bỏ cái viền của vùng cuộn
         scroll.setVerticalScrollBar(new ScrollBar()); // sử dụng cái scrollBar của mình
@@ -55,9 +60,9 @@ public class Chat_Bottom extends javax.swing.JPanel {
         add(scroll, "w 100%");// Thêm vùng cuộn vào bố cục
         // Panel để nhét cái sendButton vào
         JPanel panel = new JPanel();
-        panel.setLayout(new MigLayout("filly", "0[]0", "0[bottom]0"));
+        panel.setLayout(new MigLayout("filly", "0[]3[]0", "0[bottom]0"));
         panel.setPreferredSize(new Dimension(30, 28));
-        panel.setBackground(new Color(239, 239, 239));
+        panel.setBackground(new Color(255, 255, 255));
         // viền, nền, trỏ chuột, icon của sendButton
         JButton cmd = new JButton();
         cmd.setBorder(null);
@@ -83,9 +88,35 @@ public class Chat_Bottom extends javax.swing.JPanel {
                 }
             }
         });
+        // viền, nền, trỏ chuột, icon của moreButton
+        JButton cmdMore = new JButton();
+        cmdMore.setBorder(null);
+        cmdMore.setContentAreaFilled(false);
+        cmdMore.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        cmdMore.setIcon(new ImageIcon(getClass().getResource("/icon/more_disable.png")));
+        // chức năng của moreButton
+        cmdMore.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {// Khi nút more được nhấn
+                if(panelMore.isVisible()){
+                    cmdMore.setIcon(new ImageIcon(getClass().getResource("/icon/more_disable.png")));
+                    panelMore.setVisible(false);
+                    mig.setComponentConstraints(panelMore, "dock south, h 0!");
+                }else{
+                    cmdMore.setIcon(new ImageIcon(getClass().getResource("/icon/more.png")));
+                    panelMore.setVisible(true);
+                    mig.setComponentConstraints(panelMore, "dock south, h 150!");
+                }
+            }
+        });
+        panel.add(cmdMore);// Thêm nút more vào panel
         panel.add(cmd);// Thêm nút gửi vào panel
         add(panel);// Thêm panel vào
+        panelMore = new Panel_More();
+        panelMore.setVisible(false);
+        add(panelMore, "dock south, h 0!");
     }
+
 //    // Phương thức gửi tin nhắn ( Không cần, cho thẳng vào luôn )
 //    private void send(Model_Send_Message data) {
 //        Service.getInstance().getClient().emit("send_to_user", data.toJsonObject());
@@ -94,7 +125,6 @@ public class Chat_Bottom extends javax.swing.JPanel {
 //    private void refresh() {
 //        revalidate();
 //    }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
