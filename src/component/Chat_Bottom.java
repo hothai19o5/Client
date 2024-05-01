@@ -8,10 +8,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.text.BadLocationException;
 import model.Model_Send_Message;
 import model.Model_User_Account;
 import net.miginfocom.swing.MigLayout;
@@ -53,6 +56,10 @@ public class Chat_Bottom extends javax.swing.JPanel {
             @Override
             public void keyTyped(KeyEvent e) {// Khi người dùng gõ phím
                 revalidate();// Làm mới bố cục để cập nhật kích thước
+                // Nếu nhấn phím Enter thì xuống dòng, nhấn shift enter là gửi
+                if(e.getKeyChar() == 10 && e.isShiftDown()){
+                    sendEvent(txt);
+                }
             }
         });
         txt.setHintText("Write Message Here...");// Đặt gợi ý khi khung nhập văn bản trống
@@ -73,19 +80,7 @@ public class Chat_Bottom extends javax.swing.JPanel {
         cmd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {// Khi nút gửi được nhấn
-                String text = txt.getText().trim();// Lấy nội dung từ khung nhập văn bản, bỏ đoạn trắng 2 đầu
-                if (!text.equals("")) {// Nếu nội dung không rỗng
-                    // Tạo tin nhắn mới
-                    Model_Send_Message data = new Model_Send_Message(Service.getInstance().getUser().getUserID(), user.getUserID(), text);
-                    // Phát sự kiện có tên "send_to_user", cùng với dữ liệu ở dạng JSON
-                    Service.getInstance().getClient().emit("send_to_user", data.toJsonObject());
-                    PublicEvent.getInstance().getEventChat().sendMessage(data); // Thêm đoạn tin nhắn này vào bên phải khung chat
-                    txt.setText("");// Xóa nội dung trong khung nhập văn bản
-                    txt.grabFocus(); // trỏ lại về txt
-                    revalidate(); // Làm mới bố cục
-                } else {// Nếu nội dung rỗng, chỉ cần đặt con trỏ vào khung nhập văn bản
-                    txt.grabFocus();
-                }
+                sendEvent(txt);
             }
         });
         // viền, nền, trỏ chuột, icon của moreButton
@@ -98,11 +93,11 @@ public class Chat_Bottom extends javax.swing.JPanel {
         cmdMore.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {// Khi nút more được nhấn
-                if(panelMore.isVisible()){
+                if (panelMore.isVisible()) {
                     cmdMore.setIcon(new ImageIcon(getClass().getResource("/icon/more_disable.png")));
                     panelMore.setVisible(false);
                     mig.setComponentConstraints(panelMore, "dock south, h 0!");
-                }else{
+                } else {
                     cmdMore.setIcon(new ImageIcon(getClass().getResource("/icon/more.png")));
                     panelMore.setVisible(true);
                     mig.setComponentConstraints(panelMore, "dock south, h 150!");
@@ -115,6 +110,22 @@ public class Chat_Bottom extends javax.swing.JPanel {
         panelMore = new Panel_More();
         panelMore.setVisible(false);
         add(panelMore, "dock south, h 0!");
+    }
+    // Sự kiện gửi tin nhắn
+    private void sendEvent(JIMSendTextPane txt) {
+        String text = txt.getText().trim();// Lấy nội dung từ khung nhập văn bản, bỏ đoạn trắng 2 đầu
+        if (!text.equals("")) {// Nếu nội dung không rỗng
+            // Tạo tin nhắn mới
+            Model_Send_Message data = new Model_Send_Message(Service.getInstance().getUser().getUserID(), user.getUserID(), text);
+            // Phát sự kiện có tên "send_to_user", cùng với dữ liệu ở dạng JSON
+            Service.getInstance().getClient().emit("send_to_user", data.toJsonObject());
+            PublicEvent.getInstance().getEventChat().sendMessage(data); // Thêm đoạn tin nhắn này vào bên phải khung chat
+            txt.setText("");// Xóa nội dung trong khung nhập văn bản
+            txt.grabFocus(); // trỏ lại về txt
+            revalidate(); // Làm mới bố cục
+        } else {// Nếu nội dung rỗng, chỉ cần đặt con trỏ vào khung nhập văn bản
+            txt.grabFocus();
+        }
     }
 
 //    // Phương thức gửi tin nhắn ( Không cần, cho thẳng vào luôn )
