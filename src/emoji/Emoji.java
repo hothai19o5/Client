@@ -49,4 +49,18 @@ public class Emoji {
         }
         return list;
     }
+    public List<Model_Emoji> getStyleActivities() {
+        List<Model_Emoji> list = new ArrayList<>();
+        for (int i = 1; i <= 67; i++) {
+            list.add(new Model_Emoji(i, new ImageIcon(getClass().getResource("/emoji_icon/emoji activities/activities" + i + ".png"))));
+        }
+        return list;
+    }
+    public List<Model_Emoji> getStyleFlag() {
+        List<Model_Emoji> list = new ArrayList<>();
+        for (int i = 1; i <= 90; i++) {
+            list.add(new Model_Emoji(i, new ImageIcon(getClass().getResource("/emoji_icon/emoji flag/flag" + i + ".png"))));
+        }
+        return list;
+    }
 }

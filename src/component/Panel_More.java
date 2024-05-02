@@ -17,7 +17,7 @@ import main.Main;
 import net.miginfocom.swing.MigLayout;
 import swing.ScrollBar;
 import swing.WrapLayout;
-
+// Khi nhấn vào button more thì sẽ hiện phần này lên, để chọn icon, file...
 public class Panel_More extends javax.swing.JPanel {
 
     private JPanel panelHeader;
@@ -30,27 +30,31 @@ public class Panel_More extends javax.swing.JPanel {
     }
 
     public void init() {
-        setLayout(new MigLayout("fillx"));
+        setLayout(new MigLayout("fillx"));  // miglayout
 
-        panelHeader = new JPanel();
+        panelHeader = new JPanel();  // panel header để chọn chức năng
         // BoxLayout để có thể xếp theo chiều ngang hoặc dọc, LINE_AXIS để xếp theo chiều ngang
         panelHeader.setLayout(new BoxLayout(panelHeader, BoxLayout.LINE_AXIS));
-        panelHeader.add(getButtonFile());
-        panelHeader.add(getButtonEmojiStyleAnimal());
+        panelHeader.add(getButtonFile());   // Thêm button để chọn file
+        // Thêm các button để chọn icon
+        panelHeader.add(getButtonEmojiStyleAnimal());   
         panelHeader.add(getButtonEmojiStyleFood());
         panelHeader.add(getButtonEmojiStylePeople());
         panelHeader.add(getButtonEmojiStyleSmiley());
+        panelHeader.add(getButtonEmojiStyleActivities());
+        panelHeader.add(getButtonEmojiStyleFlag());
+        // Thêm panel header vào panel more, chiều rộng bằng panel more và chiều cao 45
         add(panelHeader, "w 100%, h 45!, wrap");
-        panelDetail = new JPanel();
+        panelDetail = new JPanel(); // panel detail là phần để hiển thị chi tiết các icon
         panelDetail.setLayout(new WrapLayout(WrapLayout.LEFT)); // Sử dụng WrapLayout tự định nghĩa
-        JScrollPane sp = new JScrollPane(panelDetail);
-        sp.setBorder(null);
+        JScrollPane sp = new JScrollPane(panelDetail);  // thêm thanh cuộn vào panel detail
+        sp.setBorder(null); // bỏ phần viền thanh cuộn
         sp.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER); // Chỉ cho kéo dài theo chiều dọc
-        sp.setVerticalScrollBar(new ScrollBar()); // Sử dụng ScrollBar tự định nghĩa
-
+        sp.setVerticalScrollBar(new ScrollBar()); // Sử dụng ScrollBar tự định nghĩa, thực ra kh dùng cũng đc, dùng nhìn cho nó nhỏ đẹp hơn
+        // Thêm thanh cuộn vào panel detail
         add(sp, "w 100%, h 100%");
     }
-
+    // nút nhấn file
     private JButton getButtonFile() {
         OptionButton cmd = new OptionButton();
         cmd.setIcon(new ImageIcon(getClass().getResource("/icon/link.png")));
@@ -153,7 +157,50 @@ public class Panel_More extends javax.swing.JPanel {
         });
         return cmd;
     }
-
+    private JButton getButtonEmojiStyleActivities() {
+        OptionButton cmd = new OptionButton();
+        cmd.setIcon(new ImageIcon(getClass().getResource("/emoji_icon/emoji activities/activities1.png")));
+        cmd.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                panelDetail.removeAll();    // Xóa panelDetail
+                // Thêm các button emoji vào bảng panelDetail
+                for(Model_Emoji me : Emoji.getInstance().getStyleActivities()){
+                    JButton b = new JButton(me.getIcon());
+                    b.setName(me.getId() + ""); // Thêm "" để chuyển int sang String 
+                    b.setBorder(new EmptyBorder(3, 3, 3, 3));
+                    b.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                    b.setContentAreaFilled(false);
+                    panelDetail.add(b);
+                }
+                panelDetail.repaint();
+                panelDetail.revalidate();
+            }
+        });
+        return cmd;
+    }
+    private JButton getButtonEmojiStyleFlag() {
+        OptionButton cmd = new OptionButton();
+        cmd.setIcon(new ImageIcon(getClass().getResource("/emoji_icon/emoji flag/flag1.png")));
+        cmd.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                panelDetail.removeAll();    // Xóa panelDetail
+                // Thêm các button emoji vào bảng panelDetail
+                for(Model_Emoji me : Emoji.getInstance().getStyleFlag()){
+                    JButton b = new JButton(me.getIcon());
+                    b.setName(me.getId() + ""); // Thêm "" để chuyển int sang String 
+                    b.setBorder(new EmptyBorder(3, 3, 3, 3));
+                    b.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                    b.setContentAreaFilled(false);
+                    panelDetail.add(b);
+                }
+                panelDetail.repaint();
+                panelDetail.revalidate();
+            }
+        });
+        return cmd;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
