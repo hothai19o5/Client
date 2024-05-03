@@ -63,4 +63,8 @@ public class Emoji {
         }
         return list;
     }
+    // Đoạn này để trả về 1 emoji từ hình ảnh
+    public Model_Emoji getEmoji(int id) {
+        return new Model_Emoji(id, new ImageIcon(getClass().getResource("/emoji_icon/emoji flag/flag" + id + ".png")));
+    }
 }

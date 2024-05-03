@@ -1,5 +1,6 @@
 package component;
 
+import app.MessageType;
 import event.PublicEvent;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -37,6 +38,7 @@ public class Chat_Bottom extends javax.swing.JPanel {
 
     public void setUser(Model_User_Account user) {
         this.user = user;
+        panelMore.setUser(user);
     }
 
     public Chat_Bottom() {
@@ -116,7 +118,7 @@ public class Chat_Bottom extends javax.swing.JPanel {
         String text = txt.getText().trim();// Lấy nội dung từ khung nhập văn bản, bỏ đoạn trắng 2 đầu
         if (!text.equals("")) {// Nếu nội dung không rỗng
             // Tạo tin nhắn mới
-            Model_Send_Message data = new Model_Send_Message(Service.getInstance().getUser().getUserID(), user.getUserID(), text);
+            Model_Send_Message data = new Model_Send_Message(Service.getInstance().getUser().getUserID(), user.getUserID(), text, MessageType.TEXT);
             // Phát sự kiện có tên "send_to_user", cùng với dữ liệu ở dạng JSON
             Service.getInstance().getClient().emit("send_to_user", data.toJsonObject());
             PublicEvent.getInstance().getEventChat().sendMessage(data); // Thêm đoạn tin nhắn này vào bên phải khung chat

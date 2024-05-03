@@ -10,14 +10,11 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JLayer;
 import javax.swing.JLayeredPane;
 import javax.swing.border.EmptyBorder;
 import net.miginfocom.swing.MigLayout;
 
-/**
- *
- * @author admin
- */
 public class Chat_Item extends javax.swing.JLayeredPane {
 
     private JLabel label;
@@ -106,6 +103,15 @@ public class Chat_Item extends javax.swing.JLayeredPane {
         add(layer);
     }
 
+    public void setEmoji(boolean right, Icon icon) {
+        JLayeredPane layer = new JLayeredPane();
+        layer.setLayout(new FlowLayout(right ? FlowLayout.RIGHT : FlowLayout.LEFT));
+        layer.setBorder(new EmptyBorder(0, 5, 5, 5));
+        layer.add(new JLabel(icon));
+        add(layer);
+        layer.setBackground(null);
+    }
+
     // Gửi thành công thì sẽ có 1 tick
     public void sendSuccess() {
         if (label != null) {
@@ -140,11 +146,16 @@ public class Chat_Item extends javax.swing.JLayeredPane {
     }// </editor-fold>//GEN-END:initComponents
 
     @Override
+    // Vẽ một phần bao quanh khi gửi tin nhắn / ảnh, nếu gửi icon thì không cần
     protected void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2.setColor(getBackground());
-        g2.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
+        if (getBackground() != null) {
+            // Thiết lập khử răng cưa để làm cho các cạnh của hình vẽ mượt hơn, giảm hiện tượng răng cưa (aliasing).
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            g2.setColor(getBackground());
+            // Vẽ một hình chữ nhật bo tròn, với góc bo tròn có bán kính 15 pixel.
+            g2.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
+        }
         super.paintComponent(g);
     }
 

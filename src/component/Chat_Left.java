@@ -26,6 +26,11 @@ public class Chat_Left extends javax.swing.JLayeredPane {
     public void setImage(String... images){
         txt.setImage(false, images);
     }
+    // Thêm emoji
+    public void setEmoji(Icon icon){
+        txt.hideText();
+        txt.setEmoji(false, icon);
+    }
     // Thời điểm gửi tin nhắn
     public void setTime(){
         LocalTime currentTime = LocalTime.now();
