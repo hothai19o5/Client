@@ -47,7 +47,6 @@ public class Panel_More extends javax.swing.JPanel {
 
     public void init() {
         setLayout(new MigLayout("fillx"));  // miglayout
-
         panelHeader = new JPanel();  // panel header để chọn chức năng
         // BoxLayout để có thể xếp theo chiều ngang hoặc dọc, LINE_AXIS để xếp theo chiều ngang
         panelHeader.setLayout(new BoxLayout(panelHeader, BoxLayout.LINE_AXIS));
@@ -201,9 +200,11 @@ public class Panel_More extends javax.swing.JPanel {
         b.setBorder(new EmptyBorder(3, 3, 3, 3));
         b.setCursor(new Cursor(Cursor.HAND_CURSOR));
         b.setContentAreaFilled(false);
+        // Đặt sự kiện khi nhấn vào button emoji -> gửi emoji
         b.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Tạo đối tượng để gửi
                 Model_Send_Message message = new Model_Send_Message(Service.getInstance().getUser().getUserID(), user.getUserID(), me.getId()+"", MessageType.EMOJI);
                 sendMessage(message);
                 PublicEvent.getInstance().getEventChat().sendMessage(message);
@@ -211,7 +212,7 @@ public class Panel_More extends javax.swing.JPanel {
         });
         return b;
     }
-    // Gửi emoji
+    // Gửi tin nhắn
     private void sendMessage(Model_Send_Message data){
         Service.getInstance().getClient().emit("send_to_user", data.toJsonObject());
     }

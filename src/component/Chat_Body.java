@@ -36,7 +36,6 @@ public class Chat_Body extends javax.swing.JPanel {
             item.setTime();
             // Đoạn này là để cho cái đoạn tin nhắn có thể xuống dòng 
             body.add(item, "wrap, w 100::80%");
-            // ::80% set max with 80%
         } else if (data.getMessageType() == MessageType.EMOJI) {
             Chat_Left item = new Chat_Left();
             item.setEmoji(Emoji.getInstance().getEmoji(Integer.valueOf(data.getText())).getIcon());
@@ -55,14 +54,13 @@ public class Chat_Body extends javax.swing.JPanel {
         item.setUserProfile(user);
         // Đoạn này là để cho cái đoạn tin nhắn có thể xuống dòng 
         body.add(item, "wrap, w 100::80%");
-        // ::80% set max with 80%
         body.repaint();
         body.revalidate();
     }
 
     // Thêm tin nhắn vào bên phải ( mình gửi)
     public void addItemRight(Model_Send_Message data) {
-        if (data.getMessageType() == MessageType.TEXT) {
+        if (data.getMessageType() == MessageType.TEXT) {// Nếu là type Text thì gửi tinh nhắn text
             Chat_Right item = new Chat_Right();
             // text
             item.setText(data.getText());
@@ -70,13 +68,11 @@ public class Chat_Body extends javax.swing.JPanel {
             item.setTime();
             // Đoạn này là để cho cái đoạn tin nhắn có thể xuống dòng 
             body.add(item, "wrap, al right, w 100::80%");
-            // ::80% set max with 80%
-        } else if (data.getMessageType() == MessageType.EMOJI) {
+        } else if (data.getMessageType() == MessageType.EMOJI) {    // Nếu là type Emoji thì gửi Emoji
             Chat_Right item = new Chat_Right();
             item.setEmoji(Emoji.getInstance().getEmoji(Integer.valueOf(data.getText())).getIcon());
             item.setTime();
         }
-
         repaint();
         revalidate();
         scrollToBottom();
@@ -91,12 +87,11 @@ public class Chat_Body extends javax.swing.JPanel {
         item.setUserProfile(user);
         // Đoạn này là để cho cái đoạn tin nhắn có thể xuống dòng 
         body.add(item, "wrap, w 100::80%");
-        // ::80% set max with 80%
         body.repaint();
         body.revalidate();
     }
 
-    // Thêm tin nhắn vào bên phải ( mình gửi)
+    // Thêm tin nhắn vào bên phải ( mình gửi), có gửi file
     public void addItemFileRight(String text, String fileName, String fileSize) {
         Chat_Right item = new Chat_Right();
         // text
@@ -107,7 +102,6 @@ public class Chat_Body extends javax.swing.JPanel {
         item.setTime();
         // Đoạn này là để cho cái đoạn tin nhắn có thể xuống dòng 
         body.add(item, "wrap, al right, w 100::80%");
-        // ::80% set max with 80%
         body.repaint();
         body.revalidate();
     }

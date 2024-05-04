@@ -95,13 +95,15 @@ public class Chat_Bottom extends javax.swing.JPanel {
         cmdMore.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {// Khi nút more được nhấn
-                if (panelMore.isVisible()) {
-                    cmdMore.setIcon(new ImageIcon(getClass().getResource("/icon/more_disable.png")));
-                    panelMore.setVisible(false);
+                if (panelMore.isVisible()) { // Nếu panelMore đang hiện thì ẩn nó đi, thay đổi cái icon more
+                    cmdMore.setIcon(new ImageIcon(getClass().getResource("/icon/more_disable.png"))); // thay đổi icon
+                    panelMore.setVisible(false);    // ẩn
+                    // dock south là để ghim nó ở dưới, h 0 là cho chiều cao nó bằng 0, ! là để cho biết đó là 1 giá trị cố định
                     mig.setComponentConstraints(panelMore, "dock south, h 0!");
-                } else {
-                    cmdMore.setIcon(new ImageIcon(getClass().getResource("/icon/more.png")));
-                    panelMore.setVisible(true);
+                } else {    // Nếu panelMore đang ẩn thì lại hiện nó lên, thay đổi cái icon more
+                    cmdMore.setIcon(new ImageIcon(getClass().getResource("/icon/more.png")));   // thay đổi icon
+                    panelMore.setVisible(true); // hiện
+                    // dock south là để ghim nó ở dưới, h 150 là cho chiều cao nó bằng 150, ! là để cho biết đó là 1 giá trị cố định
                     mig.setComponentConstraints(panelMore, "dock south, h 150!");
                 }
             }
@@ -110,6 +112,7 @@ public class Chat_Bottom extends javax.swing.JPanel {
         panel.add(cmd);// Thêm nút gửi vào panel
         add(panel);// Thêm panel vào
         panelMore = new Panel_More();
+        // bật app lên thì auto ẩn đi
         panelMore.setVisible(false);
         add(panelMore, "dock south, h 0!");
     }

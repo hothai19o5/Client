@@ -17,7 +17,7 @@ public class Service {
     private static Service instance;
     private Socket client;
     private final int PORT = 9999; 
-    private final String IP = "192.168.1.2"; // Nếu muốn chạy trong các máy trong cùng 1 mạng lan thì chỉnh lại IP
+    private final String IP = "localhost"; // Nếu muốn chạy trong các máy trong cùng 1 mạng lan thì chỉnh lại IP
     private Model_User_Account user;
 
     public static Service getInstance() {
