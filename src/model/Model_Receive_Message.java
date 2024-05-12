@@ -6,7 +6,7 @@ import org.json.JSONObject;
 
 public class Model_Receive_Message {
 
-    private MessageType messageType;    // Kiểu tin nhắn text, emoji, file
+    private int messageType;    // Kiểu tin nhắn text, emoji, file
     private int fromUserID;     // Gửi từ người dùng có ID là ...
     private String text;    // Nội dung tin nhắn
     
@@ -26,15 +26,15 @@ public class Model_Receive_Message {
         this.text = text;
     }
     
-    public MessageType getMessageType(){
+    public int getMessageType(){
         return messageType;
     }
     
-    public void setMessageType(MessageType messageType){
+    public void setMessageType(int messageType){
         this.messageType = messageType;
     }
 
-    public Model_Receive_Message(int fromUserID, String text, MessageType messageType) {
+    public Model_Receive_Message(int fromUserID, String text, int messageType) {
         this.messageType = messageType;
         this.fromUserID = fromUserID;
         this.text = text;
@@ -44,7 +44,7 @@ public class Model_Receive_Message {
         JSONObject obj = (JSONObject) json;
         try {
             // Lấy dữ liệu từ khóa
-            messageType = MessageType.toMessageType(obj.getInt("messageType"));
+            messageType = obj.getInt("messageType");
             fromUserID = obj.getInt("fromUserID");
             text = obj.getString("text");
         } catch (JSONException e) {
@@ -57,11 +57,12 @@ public class Model_Receive_Message {
         try {
             JSONObject json = new JSONObject();
             // Tạo các cặp khóa dữ liệu
-            json.put("messageType", messageType.getValue());
+            json.put("messageType", messageType);
             json.put("fromUserID", fromUserID);
             json.put("text", text);
             return json;
         } catch (JSONException e) {
+            System.err.println(e);
             return null;
         }
     }

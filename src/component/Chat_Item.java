@@ -102,10 +102,12 @@ public class Chat_Item extends javax.swing.JLayeredPane {
         layer.add(chatFile);
         add(layer);
     }
+    
     // Gửi emoji ( Thêm cái emoji vòa đoạn chat, không phải sự kiện gửi )
     public void setEmoji(boolean right, Icon icon) {
         JLayeredPane layer = new JLayeredPane();
-        layer.setLayout(new FlowLayout(right ? FlowLayout.RIGHT : FlowLayout.LEFT)); // Xác định thêm vào bên trái hay phải
+        // Xác định thêm vào bên trái hay phải
+        layer.setLayout(new FlowLayout(right ? FlowLayout.RIGHT : FlowLayout.LEFT)); 
         layer.setBorder(new EmptyBorder(0, 5, 5, 5));
         layer.add(new JLabel(icon));
         add(layer);

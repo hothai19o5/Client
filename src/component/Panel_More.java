@@ -88,7 +88,7 @@ public class Panel_More extends javax.swing.JPanel {
     // Các button Emoji, nhấn vào sẽ hiện 1 bảng emoji, bảng này cũng gồm các button emoji
     private JButton getButtonEmojiStyleAnimal() {
         OptionButton cmd = new OptionButton();
-        cmd.setIcon(new ImageIcon(getClass().getResource("/emoji_icon/emoji animal/animal1.png")));
+        cmd.setIcon(new ImageIcon(getClass().getResource("/emoji_icon/emoji activities/emoji icon" + 68 + ".png")));
         cmd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -106,7 +106,7 @@ public class Panel_More extends javax.swing.JPanel {
 
     private JButton getButtonEmojiStyleFood() {
         OptionButton cmd = new OptionButton();
-        cmd.setIcon(new ImageIcon(getClass().getResource("/emoji_icon/emoji food & drink/food1.png")));
+        cmd.setIcon(new ImageIcon(getClass().getResource("/emoji_icon/emoji activities/emoji icon" + 300 + ".png")));
         cmd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -124,7 +124,7 @@ public class Panel_More extends javax.swing.JPanel {
 
     private JButton getButtonEmojiStylePeople() {
         OptionButton cmd = new OptionButton();
-        cmd.setIcon(new ImageIcon(getClass().getResource("/emoji_icon/emoji people & body/people1.png")));
+        cmd.setIcon(new ImageIcon(getClass().getResource("/emoji_icon/emoji activities/emoji icon" + 431 + ".png")));
         cmd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -142,7 +142,7 @@ public class Panel_More extends javax.swing.JPanel {
 
     private JButton getButtonEmojiStyleSmiley() {
         OptionButton cmd = new OptionButton();
-        cmd.setIcon(new ImageIcon(getClass().getResource("/emoji_icon/emoji smileys & emoiton/simley1.png")));
+        cmd.setIcon(new ImageIcon(getClass().getResource("/emoji_icon/emoji activities/emoji icon" + 497 + ".png")));
         cmd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -160,7 +160,7 @@ public class Panel_More extends javax.swing.JPanel {
 
     private JButton getButtonEmojiStyleActivities() {
         OptionButton cmd = new OptionButton();
-        cmd.setIcon(new ImageIcon(getClass().getResource("/emoji_icon/emoji activities/activities1.png")));
+        cmd.setIcon(new ImageIcon(getClass().getResource("/emoji_icon/emoji activities/emoji icon" + 1 + ".png")));
         cmd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -178,7 +178,7 @@ public class Panel_More extends javax.swing.JPanel {
 
     private JButton getButtonEmojiStyleFlag() {
         OptionButton cmd = new OptionButton();
-        cmd.setIcon(new ImageIcon(getClass().getResource("/emoji_icon/emoji flag/flag1.png")));
+        cmd.setIcon(new ImageIcon(getClass().getResource("/emoji_icon/emoji activities/emoji icon" + 210 + ".png")));
         cmd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -205,7 +205,7 @@ public class Panel_More extends javax.swing.JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Tạo đối tượng để gửi
-                Model_Send_Message message = new Model_Send_Message(Service.getInstance().getUser().getUserID(), user.getUserID(), me.getId()+"", MessageType.EMOJI);
+                Model_Send_Message message = new Model_Send_Message(Service.getInstance().getUser().getUserID(), user.getUserID(), me.getId()+"", 2);
                 sendMessage(message);
                 PublicEvent.getInstance().getEventChat().sendMessage(message);
             }

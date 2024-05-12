@@ -30,16 +30,17 @@ public class Chat_Body extends javax.swing.JPanel {
 
     // Thêm tin nhắn vào bên trái ( người khác nhắn tới )
     public void addItemLeft(Model_Receive_Message data) {
-        if (data.getMessageType() == MessageType.TEXT) {
+        if (data.getMessageType() == 1) {
             Chat_Left item = new Chat_Left();
             item.setText(data.getText());
             item.setTime();
             // Đoạn này là để cho cái đoạn tin nhắn có thể xuống dòng 
             body.add(item, "wrap, w 100::80%");
-        } else if (data.getMessageType() == MessageType.EMOJI) {
+        } else if (data.getMessageType() == 2) {    // Đang có vấn đề ở đoạn này, không hiện emoji khi gửi
             Chat_Left item = new Chat_Left();
             item.setEmoji(Emoji.getInstance().getEmoji(Integer.valueOf(data.getText())).getIcon());
             item.setTime();
+            body.add(item, "wrap");
         }
         repaint();
         revalidate();
@@ -60,7 +61,7 @@ public class Chat_Body extends javax.swing.JPanel {
 
     // Thêm tin nhắn vào bên phải ( mình gửi)
     public void addItemRight(Model_Send_Message data) {
-        if (data.getMessageType() == MessageType.TEXT) {// Nếu là type Text thì gửi tinh nhắn text
+        if (data.getMessageType() == 1) {// Nếu là type Text thì gửi tinh nhắn text
             Chat_Right item = new Chat_Right();
             // text
             item.setText(data.getText());
@@ -68,14 +69,16 @@ public class Chat_Body extends javax.swing.JPanel {
             item.setTime();
             // Đoạn này là để cho cái đoạn tin nhắn có thể xuống dòng 
             body.add(item, "wrap, al right, w 100::80%");
-        } else if (data.getMessageType() == MessageType.EMOJI) {    // Nếu là type Emoji thì gửi Emoji
+        } else if (data.getMessageType() == 2) {    // Nếu là type Emoji thì gửi Emoji
+            // Vẫn đang còn 1 lỗi là khi gửi không giống khi nhận nma kệ đi
             Chat_Right item = new Chat_Right();
-            item.setEmoji(Emoji.getInstance().getEmoji(Integer.valueOf(data.getText())).getIcon());
+            item.setImage(Emoji.getInstance().getEmoji(Integer.valueOf(data.getText())).getIcon());
             item.setTime();
+            // Không có phần body.add() này nên không thêm cái icon gửi vào đoạn chat, fix ngày 12/5
+            body.add(item, "wrap, al right");   
         }
         repaint();
         revalidate();
-        scrollToBottom();
     }
 
     // Thêm tin nhắn vào bên trái ( người khác nhắn tới ), có gửi file

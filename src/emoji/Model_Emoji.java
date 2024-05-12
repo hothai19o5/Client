@@ -13,9 +13,7 @@ public class Model_Emoji {
         this.id = id;
         this.icon = icon;
     }
-    
-    
-    
+
     public int getId() {
         return id;
     }

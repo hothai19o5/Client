@@ -36,7 +36,7 @@ public class Emoji {
 
     public List<Model_Emoji> getStylePeople() {
         List<Model_Emoji> list = new ArrayList<>();
-        for (int i = 431; i <= 658; i++) {
+        for (int i = 431; i <= 496; i++) {
             list.add(new Model_Emoji(i, new ImageIcon(getClass().getResource("/emoji_icon/emoji activities/emoji icon" + i + ".png"))));
         }
         return list;
@@ -44,7 +44,7 @@ public class Emoji {
 
     public List<Model_Emoji> getStyleSmiley() {
         List<Model_Emoji> list = new ArrayList<>();
-        for (int i = 1; i <= 162; i++) {
+        for (int i = 497; i <= 658; i++) {
             list.add(new Model_Emoji(i, new ImageIcon(getClass().getResource("/emoji_icon/emoji activities/emoji icon" + i + ".png"))));
         }
         return list;
@@ -68,6 +68,11 @@ public class Emoji {
 
     // Đoạn này để trả về 1 emoji từ hình ảnh
     public Model_Emoji getEmoji(int id) {
-        return new Model_Emoji(id, new ImageIcon(getClass().getResource("/emoji_icon/emoji activities/emoji icon" + id + ".png")));
+        try {
+            return new Model_Emoji(id, new ImageIcon(getClass().getResource("/emoji_icon/emoji activities/emoji icon" + id + ".png")));
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
     }
 }
