@@ -108,10 +108,10 @@ public class Chat_Item extends javax.swing.JLayeredPane {
         JLayeredPane layer = new JLayeredPane();
         // Xác định thêm vào bên trái hay phải
         layer.setLayout(new FlowLayout(right ? FlowLayout.RIGHT : FlowLayout.LEFT)); 
-        layer.setBorder(new EmptyBorder(0, 5, 5, 5));
+        layer.setBorder(new EmptyBorder(0, 0, 0, 0));
         layer.add(new JLabel(icon));
         add(layer);
-        layer.setBackground(null);
+        setBackground(null);    
     }
 
     // Gửi thành công thì sẽ có 1 tick

@@ -36,11 +36,10 @@ public class Chat_Body extends javax.swing.JPanel {
             item.setTime();
             // Đoạn này là để cho cái đoạn tin nhắn có thể xuống dòng 
             body.add(item, "wrap, w 100::80%");
-        } else if (data.getMessageType() == 2) {    // Đang có vấn đề ở đoạn này, không hiện emoji khi gửi
+        } else if (data.getMessageType() == 2) {    
             Chat_Left item = new Chat_Left();
             item.setEmoji(Emoji.getInstance().getEmoji(Integer.valueOf(data.getText())).getIcon());
-            item.setTime();
-            body.add(item, "wrap");
+            body.add(item, "wrap, w 100::80%");
         }
         repaint();
         revalidate();
@@ -72,10 +71,9 @@ public class Chat_Body extends javax.swing.JPanel {
         } else if (data.getMessageType() == 2) {    // Nếu là type Emoji thì gửi Emoji
             // Vẫn đang còn 1 lỗi là khi gửi không giống khi nhận nma kệ đi
             Chat_Right item = new Chat_Right();
-            item.setImage(Emoji.getInstance().getEmoji(Integer.valueOf(data.getText())).getIcon());
-            item.setTime();
+            item.setEmoji(Emoji.getInstance().getEmoji(Integer.valueOf(data.getText())).getIcon());
             // Không có phần body.add() này nên không thêm cái icon gửi vào đoạn chat, fix ngày 12/5
-            body.add(item, "wrap, al right");   
+            body.add(item, "wrap, al right, w 100::80%");   
         }
         repaint();
         revalidate();
