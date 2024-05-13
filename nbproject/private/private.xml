@@ -5,8 +5,11 @@
         <group>
             <file>file:/C:/Users/admin/Documents/NetBeansProjects/BaiTapLon/src/component/Chat_Item.java</file>
             <file>file:/C:/Users/admin/Documents/NetBeansProjects/BaiTapLon/src/component/Chat_Body.java</file>
+            <file>file:/C:/Users/admin/Documents/NetBeansProjects/BaiTapLon/src/model/Model_File_Sender.java</file>
             <file>file:/C:/Users/admin/Documents/NetBeansProjects/BaiTapLon/src/model/Model_Receive_Message.java</file>
             <file>file:/C:/Users/admin/Documents/NetBeansProjects/BaiTapLon/src/component/Chat_Right.java</file>
+            <file>file:/C:/Users/admin/Documents/NetBeansProjects/BaiTapLon/src/component/Chat_Bottom.java</file>
+            <file>file:/C:/Users/admin/Documents/NetBeansProjects/BaiTapLon/src/component/Panel_More.java</file>
         </group>
     </open-files>
 </project-private>

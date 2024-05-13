@@ -7,6 +7,7 @@ import event.PublicEvent;
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -15,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileFilter;
 import main.Main;
 import model.Model_Send_Message;
 import model.Model_User_Account;
@@ -50,6 +52,7 @@ public class Panel_More extends javax.swing.JPanel {
         panelHeader = new JPanel();  // panel header để chọn chức năng
         // BoxLayout để có thể xếp theo chiều ngang hoặc dọc, LINE_AXIS để xếp theo chiều ngang
         panelHeader.setLayout(new BoxLayout(panelHeader, BoxLayout.LINE_AXIS));
+        panelHeader.add(getButtonImage());   // Thêm button để chọn ảnh
         panelHeader.add(getButtonFile());   // Thêm button để chọn file
         // Thêm các button để chọn icon
         panelHeader.add(getButtonEmojiStyleAnimal());
@@ -69,11 +72,42 @@ public class Panel_More extends javax.swing.JPanel {
         // Thêm thanh cuộn vào panel detail
         add(sp, "w 100%, h 100%");
     }
+    
+    // Nút nhất gửi ảnh
+    private JButton getButtonImage() {
+        OptionButton cmd = new OptionButton();
+        cmd.setIcon(new ImageIcon(getClass().getResource("/icon/icons8-image-48.png")));
+        cmd.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setMultiSelectionEnabled(true); // Cho phép chọn nhiều file 
+                fileChooser.setFileFilter(new FileFilter(){     // Chỉ lọc những file ảnh 
+                    @Override
+                    public boolean accept(File f) {
+                        return isImageFile(f);
+                    }
 
+                    @Override
+                    public String getDescription() {
+                        return "Image File";
+                    }
+                    
+                });
+                int ch = fileChooser.showOpenDialog(Main.getFrames()[0]); // Mở một ô để chọn file
+                if(ch == JFileChooser.APPROVE_OPTION){
+                    
+                }
+                // Phần này là để gửi file, sẽ update sau
+            }
+        });
+        return cmd;
+    }
+    
     // nút nhấn file
     private JButton getButtonFile() {
         OptionButton cmd = new OptionButton();
-        cmd.setIcon(new ImageIcon(getClass().getResource("/icon/link.png")));
+        cmd.setIcon(new ImageIcon(getClass().getResource("/icon/icons8-file-48.png")));
         cmd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -215,6 +249,13 @@ public class Panel_More extends javax.swing.JPanel {
     // Gửi tin nhắn
     private void sendMessage(Model_Send_Message data){
         Service.getInstance().getClient().emit("send_to_user", data.toJsonObject());
+    }
+    // Kiểm tra xem một file có phải là file ảnh hay không
+    private boolean isImageFile(File f){
+        // Lấy đường dẫn tới file
+        String name = f.getAbsolutePath().toLowerCase();
+        // Kiểm tra xem trong đường dẫn file có chứa chuỗi con là .png .jpg .jpeg .gif
+        return name.endsWith(".png")||name.endsWith(".jpg")||name.endsWith(".jpeg")||name.endsWith(".gif");
     }
     
     /**
