@@ -1,6 +1,5 @@
 package component;
 
-import app.MessageType;
 import emoji.Model_Emoji;
 import emoji.Emoji;
 import event.PublicEvent;
@@ -8,12 +7,12 @@ import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileFilter;
@@ -29,11 +28,11 @@ import swing.WrapLayout;
 public class Panel_More extends javax.swing.JPanel {
 
     private Model_User_Account user;    // Người nhận
-    
+
     private JPanel panelHeader;         // Phần header
 
     private JPanel panelDetail;         // Phần detail khi nhấn vào button trong header
-    
+
     public Model_User_Account getUser() {
         return user;
     }
@@ -41,7 +40,7 @@ public class Panel_More extends javax.swing.JPanel {
     public void setUser(Model_User_Account user) {
         this.user = user;
     }
-    
+
     public Panel_More() {
         initComponents();
         init();
@@ -72,9 +71,9 @@ public class Panel_More extends javax.swing.JPanel {
         // Thêm thanh cuộn vào panel detail
         add(sp, "w 100%, h 100%");
     }
-    
+
     // Nút nhất gửi ảnh
-    private JButton getButtonImage() {
+    private JButton getButtonImage(){
         OptionButton cmd = new OptionButton();
         cmd.setIcon(new ImageIcon(getClass().getResource("/icon/icons8-image-48.png")));
         cmd.addActionListener(new ActionListener() {
@@ -82,28 +81,39 @@ public class Panel_More extends javax.swing.JPanel {
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fileChooser = new JFileChooser();
                 fileChooser.setMultiSelectionEnabled(true); // Cho phép chọn nhiều file 
-                fileChooser.setFileFilter(new FileFilter(){     // Chỉ lọc những file ảnh 
+                fileChooser.setFileFilter(new FileFilter() {     
+                    // Chỉ lọc những file ảnh 
                     @Override
                     public boolean accept(File f) {
                         return isImageFile(f);
                     }
-
+                    // Phần mô tả cho bộ lọc
                     @Override
                     public String getDescription() {
                         return "Image File";
                     }
-                    
+
                 });
                 int ch = fileChooser.showOpenDialog(Main.getFrames()[0]); // Mở một ô để chọn file
-                if(ch == JFileChooser.APPROVE_OPTION){
-                    
+                if (ch == JFileChooser.APPROVE_OPTION) {
+                    File files[] = fileChooser.getSelectedFiles();  // Các file đã chọn
+                    try {
+                        for (File file : files) {   // Gửi từng file đi
+                            // Tạo gói tin với thông tin ID người gửi, người nhận, kiểu tin nhắn
+                            Model_Send_Message message = new Model_Send_Message(Service.getInstance().getUser().getUserID(), user.getUserID(), "", 3);
+                            // Gửi file cùng với các thông tin
+                            Service.getInstance().addFile(file, message);
+                            PublicEvent.getInstance().getEventChat().sendMessage(message);
+                        }
+                    } catch (IOException ie) {
+                        ie.printStackTrace();
+                    }
                 }
-                // Phần này là để gửi file, sẽ update sau
             }
         });
         return cmd;
     }
-    
+
     // nút nhấn file
     private JButton getButtonFile() {
         OptionButton cmd = new OptionButton();
@@ -113,7 +123,7 @@ public class Panel_More extends javax.swing.JPanel {
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fileChooser = new JFileChooser();
                 fileChooser.showOpenDialog(Main.getFrames()[0]); // Mở một ô để chọn file
-                // Phần này là để gửi file, sẽ update sau
+                // Phần này là để gửi file, sẽ update sau ( nếu đủ sức )
             }
         });
         return cmd;
@@ -227,6 +237,7 @@ public class Panel_More extends javax.swing.JPanel {
         });
         return cmd;
     }
+
     // Các button emoji và sự kiện khi nhấn vào sẽ gửi emoji
     private JButton getButton(Model_Emoji me) {
         JButton b = new JButton(me.getIcon());
@@ -239,25 +250,27 @@ public class Panel_More extends javax.swing.JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Tạo đối tượng để gửi
-                Model_Send_Message message = new Model_Send_Message(Service.getInstance().getUser().getUserID(), user.getUserID(), me.getId()+"", 2);
+                Model_Send_Message message = new Model_Send_Message(Service.getInstance().getUser().getUserID(), user.getUserID(), me.getId() + "", 2);
                 sendMessage(message);
                 PublicEvent.getInstance().getEventChat().sendMessage(message);
             }
         });
         return b;
     }
+
     // Gửi tin nhắn
-    private void sendMessage(Model_Send_Message data){
+    private void sendMessage(Model_Send_Message data) {
         Service.getInstance().getClient().emit("send_to_user", data.toJsonObject());
     }
+
     // Kiểm tra xem một file có phải là file ảnh hay không
-    private boolean isImageFile(File f){
+    private boolean isImageFile(File f) {
         // Lấy đường dẫn tới file
         String name = f.getAbsolutePath().toLowerCase();
         // Kiểm tra xem trong đường dẫn file có chứa chuỗi con là .png .jpg .jpeg .gif
-        return name.endsWith(".png")||name.endsWith(".jpg")||name.endsWith(".jpeg")||name.endsWith(".gif");
+        return name.endsWith(".png") || name.endsWith(".jpg") || name.endsWith(".jpeg") || name.endsWith(".gif");
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

@@ -9,7 +9,16 @@ public class Model_Send_Message {
     private int toUserID;   // Người nhận
     private String text;    // Text
     private int messageType;    // Kiểu tin nhắn
+    private Model_File_Sender file;    
 
+    public Model_File_Sender getFile() {
+        return file;
+    }
+
+    public void setFile(Model_File_Sender file) {
+        this.file = file;
+    }
+    
     public int getFromUserID() {
         return fromUserID;
     }
@@ -59,7 +68,11 @@ public class Model_Send_Message {
             json.put("messageType", messageType);
             json.put("fromUserID", fromUserID);
             json.put("toUserID", toUserID);
-            json.put("text", text);
+            if(messageType == 3 || messageType == 4){ // 3 là gửi ảnh, 4 là gửi file
+                json.put("text", file.getFileExtension());
+            }else{
+                json.put("text", text);
+            }
             return json;
         } catch (JSONException e) {
             System.out.println(e);

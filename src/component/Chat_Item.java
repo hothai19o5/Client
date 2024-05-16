@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JLayer;
 import javax.swing.JLayeredPane;
 import javax.swing.border.EmptyBorder;
+import model.Model_File_Sender;
 import net.miginfocom.swing.MigLayout;
 
 public class Chat_Item extends javax.swing.JLayeredPane {
@@ -69,16 +70,15 @@ public class Chat_Item extends javax.swing.JLayeredPane {
     }
 
     // Gửi ảnh ( Thêm ảnh vào khung chat, không phải sự kiện )
-    public void setImage(boolean right, Icon... images) {
-        if (images.length > 0) {
-            JLayeredPane layer = new JLayeredPane();
-            layer.setLayout(new FlowLayout(right ? FlowLayout.RIGHT : FlowLayout.LEFT));
-            layer.setBorder(new EmptyBorder(0, 5, 5, 5));
-            Chat_Image chatImage = new Chat_Image(right);
-            chatImage.addImage(images);
-            layer.add(chatImage);
-            add(layer);
-        }
+    public void setImage(boolean right, Model_File_Sender fileSender) {
+        JLayeredPane layer = new JLayeredPane();
+        layer.setLayout(new FlowLayout(right ? FlowLayout.RIGHT : FlowLayout.LEFT));
+        layer.setBorder(new EmptyBorder(0, 5, 5, 5));
+        Chat_Image chatImage = new Chat_Image(right);
+        chatImage.addImage(fileSender);
+        layer.add(chatImage);
+        add(layer);
+
     }
 
     // Gửi ảnh đã mã hóa blurHash ( Thêm ảnh vào khung chat, không phải sự kiện )
@@ -102,16 +102,16 @@ public class Chat_Item extends javax.swing.JLayeredPane {
         layer.add(chatFile);
         add(layer);
     }
-    
+
     // Gửi emoji ( Thêm cái emoji vòa đoạn chat, không phải sự kiện gửi )
     public void setEmoji(boolean right, Icon icon) {
         JLayeredPane layer = new JLayeredPane();
         // Xác định thêm vào bên trái hay phải
-        layer.setLayout(new FlowLayout(right ? FlowLayout.RIGHT : FlowLayout.LEFT)); 
+        layer.setLayout(new FlowLayout(right ? FlowLayout.RIGHT : FlowLayout.LEFT));
         layer.setBorder(new EmptyBorder(0, 0, 0, 0));
         layer.add(new JLabel(icon));
         add(layer);
-        setBackground(null);    
+        setBackground(null);
     }
 
     // Gửi thành công thì sẽ có 1 tick

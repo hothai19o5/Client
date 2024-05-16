@@ -57,7 +57,6 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="cc" type="rgb"/>
             </Property>
-            <Property name="value" type="int" value="25"/>
             <Property name="progressType" type="swing.Progress$ProgressType" editor="org.netbeans.modules.form.editors.EnumEditor">
               <Value id="CANCEL"/>
             </Property>

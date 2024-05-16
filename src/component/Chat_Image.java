@@ -4,12 +4,12 @@ import event.PublicEvent;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.Point;
-import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
+import model.Model_File_Sender;
 import net.miginfocom.swing.MigLayout;
 import swing.PictureBox;
 
@@ -23,18 +23,20 @@ public class Chat_Image extends javax.swing.JPanel {
         // Thiết kế cái khung gửi ảnh ( viền 4 cạnh, ... )
         setLayout(new MigLayout("", "0[" + (right ? "right" : "left") + "]0", "0[]0"));
     }
+
     // Thêm ảnh 
-    public void addImage(Icon... images) {
-        for (Icon image : images) {
-            PictureBox pic = new PictureBox();
-            // Kích thước tối đa của ảnh khi ở trong khung chat
-            pic.setPreferredSize(getAutoSize(image, 100, 100));
-            pic.setImage(image);
-            // Thêm sự kiện khi bấm vào ảnh 
-            addEvent(pic, image);
-            add(pic, "wrap");
-        }
+    public void addImage(Model_File_Sender fileSender) {
+        ImageIcon image = new ImageIcon(fileSender.getFile().getAbsolutePath());
+        Image_Item pic = new Image_Item();
+        // Kích thước tối đa của ảnh khi ở trong khung chat
+        pic.setPreferredSize(getAutoSize(image, 100, 100));
+        pic.setImage(image, fileSender);
+        // Thêm sự kiện khi bấm vào ảnh 
+        addEvent(pic, image);
+        add(pic, "wrap");
+
     }
+
     // Thêm ảnh đã mã hóa blurHash
     public void addImage(String... images) {
         for (String image : images) {
@@ -44,6 +46,7 @@ public class Chat_Image extends javax.swing.JPanel {
             add(pic, "wrap");
         }
     }
+
     // Sự kiện khi nhấn vào ảnh
     private void addEvent(Component com, Icon image) {
         // Trỏ vào ảnh thì trỏ chuột thay đổi
@@ -62,7 +65,7 @@ public class Chat_Image extends javax.swing.JPanel {
 
     private Dimension getAutoSize(Icon image, int w, int h) {
         // Lấy kích thước ảnh lớn nhất là bằng với kích thước app
-        if((w > image.getIconWidth())||(h > image.getIconHeight())){
+        if ((w > image.getIconWidth()) || (h > image.getIconHeight())) {
             w = image.getIconWidth();
             h = image.getIconHeight();
         }

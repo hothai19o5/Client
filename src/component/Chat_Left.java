@@ -20,7 +20,8 @@ public class Chat_Left extends javax.swing.JLayeredPane {
     }
     // Thêm ảnh 
     public void setImage(Icon... images){
-        txt.setImage(false, images);
+//        txt.setImage(false, images);
+//        update late
     }
     // Thêm ảnh đã mã hóa
     public void setImage(String... images){

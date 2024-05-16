@@ -30,16 +30,20 @@ public class Chat_Body extends javax.swing.JPanel {
 
     // Thêm tin nhắn vào bên trái ( người khác nhắn tới )
     public void addItemLeft(Model_Receive_Message data) {
-        if (data.getMessageType() == 1) {
+        if (data.getMessageType() == 1) {       // Nhận text
             Chat_Left item = new Chat_Left();
             item.setText(data.getText());
             item.setTime();
             // Đoạn này là để cho cái đoạn tin nhắn có thể xuống dòng 
             body.add(item, "wrap, w 100::80%");
-        } else if (data.getMessageType() == 2) {    
+        } else if (data.getMessageType() == 2) {    // Nhận emoji
             Chat_Left item = new Chat_Left();
             item.setEmoji(Emoji.getInstance().getEmoji(Integer.valueOf(data.getText())).getIcon());
             body.add(item, "wrap, w 100::80%");
+        } else if(data.getMessageType() == 3) {     // Nhận ảnh
+            Chat_Left item = new Chat_Left();
+            item.setText("");
+            item.setTime();
         }
         repaint();
         revalidate();
@@ -69,11 +73,16 @@ public class Chat_Body extends javax.swing.JPanel {
             // Đoạn này là để cho cái đoạn tin nhắn có thể xuống dòng 
             body.add(item, "wrap, al right, w 100::80%");
         } else if (data.getMessageType() == 2) {    // Nếu là type Emoji thì gửi Emoji
-            // Vẫn đang còn 1 lỗi là khi gửi không giống khi nhận nma kệ đi
             Chat_Right item = new Chat_Right();
             item.setEmoji(Emoji.getInstance().getEmoji(Integer.valueOf(data.getText())).getIcon());
             // Không có phần body.add() này nên không thêm cái icon gửi vào đoạn chat, fix ngày 12/5
             body.add(item, "wrap, al right, w 100::80%");   
+        } else if (data.getMessageType() == 3) {    // Gửi ảnh
+            Chat_Right item = new Chat_Right();
+            item.setImage(data.getFile());
+            item.setText("");
+            item.setTime();
+            body.add(item, "wrap, al right");
         }
         repaint();
         revalidate();
