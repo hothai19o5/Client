@@ -34,7 +34,7 @@ public class Chat_Left_With_Profile extends javax.swing.JLayeredPane {
     }
     // Thêm ảnh đã mã hóa
     public void setImage(String... images){
-        txt.setImage(false, images);
+//        txt.setImage(false, images);
     }
     public void setFile(String fileName, String fileSize){
         txt.setFile(fileName, fileSize);

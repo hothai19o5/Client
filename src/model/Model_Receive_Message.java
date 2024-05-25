@@ -9,6 +9,7 @@ public class Model_Receive_Message {
     private int messageType;    // Kiểu tin nhắn text, emoji, file
     private int fromUserID;     // Gửi từ người dùng có ID là ...
     private String text;    // Nội dung tin nhắn
+    private Model_Receive_Image dataImage;  // 
     
     public int getFromUserID() {
         return fromUserID;
@@ -47,6 +48,9 @@ public class Model_Receive_Message {
             messageType = obj.getInt("messageType");
             fromUserID = obj.getInt("fromUserID");
             text = obj.getString("text");
+            if(!obj.isNull("dataImage")){
+                dataImage = new Model_Receive_Image(obj.get("dataImage"));
+            }
         } catch (JSONException e) {
             System.err.println(e);
         }
@@ -60,6 +64,9 @@ public class Model_Receive_Message {
             json.put("messageType", messageType);
             json.put("fromUserID", fromUserID);
             json.put("text", text);
+            if(dataImage != null){
+                json.put("dataImage", dataImage);
+            }
             return json;
         } catch (JSONException e) {
             System.err.println(e);

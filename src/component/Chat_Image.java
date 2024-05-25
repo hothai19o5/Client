@@ -10,6 +10,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
 import model.Model_File_Sender;
+import model.Model_Receive_Image;
 import net.miginfocom.swing.MigLayout;
 import swing.PictureBox;
 
@@ -38,13 +39,11 @@ public class Chat_Image extends javax.swing.JPanel {
     }
 
     // Thêm ảnh đã mã hóa blurHash
-    public void addImage(String... images) {
-        for (String image : images) {
-            Image_Item pic = new Image_Item();
-            pic.setPreferredSize(new Dimension(200, 200)); // test
-            pic.setImage(image);
-            add(pic, "wrap");
-        }
+    public void addImage(Model_Receive_Image dataImage) {
+        Image_Item pic = new Image_Item();
+        pic.setPreferredSize(new Dimension(dataImage.getWidth(), dataImage.getHeight()));
+        pic.setImage(dataImage);
+        add(pic, "wrap");
     }
 
     // Sự kiện khi nhấn vào ảnh

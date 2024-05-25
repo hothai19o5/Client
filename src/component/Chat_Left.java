@@ -3,6 +3,7 @@ package component;
 import java.awt.Color;
 import javax.swing.Icon;
 import java.time.LocalTime;
+import model.Model_Receive_Image;
 
 public class Chat_Left extends javax.swing.JLayeredPane {
     // Contructor
@@ -24,8 +25,8 @@ public class Chat_Left extends javax.swing.JLayeredPane {
 //        update late
     }
     // Thêm ảnh đã mã hóa
-    public void setImage(String... images){
-        txt.setImage(false, images);
+    public void setImage(Model_Receive_Image dataImage){
+        txt.setImage(false, dataImage);
     }
     // Thêm emoji
     public void setEmoji(Icon icon){

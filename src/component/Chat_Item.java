@@ -14,6 +14,7 @@ import javax.swing.JLayer;
 import javax.swing.JLayeredPane;
 import javax.swing.border.EmptyBorder;
 import model.Model_File_Sender;
+import model.Model_Receive_Image;
 import net.miginfocom.swing.MigLayout;
 
 public class Chat_Item extends javax.swing.JLayeredPane {
@@ -82,12 +83,12 @@ public class Chat_Item extends javax.swing.JLayeredPane {
     }
 
     // Gửi ảnh đã mã hóa blurHash ( Thêm ảnh vào khung chat, không phải sự kiện )
-    public void setImage(boolean right, String... images) {
+    public void setImage(boolean right, Model_Receive_Image dataImage) {
         JLayeredPane layer = new JLayeredPane();
         layer.setLayout(new FlowLayout(right ? FlowLayout.RIGHT : FlowLayout.LEFT));
         layer.setBorder(new EmptyBorder(0, 5, 5, 5));
         Chat_Image chatImage = new Chat_Image(right);
-        chatImage.addImage(images);
+        chatImage.addImage(dataImage);
         layer.add(chatImage);
         add(layer);
     }

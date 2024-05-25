@@ -29,7 +29,7 @@ public class Chat_Right extends javax.swing.JLayeredPane {
     }
     // Thêm ảnh đã mã hóa
     public void setImage(String... images){
-        txt.setImage(true, images);
+//        txt.setImage(true, images);
     }
     // Thời điểm gửi tin nhắn
     public void setTime(){

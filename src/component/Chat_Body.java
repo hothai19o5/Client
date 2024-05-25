@@ -43,6 +43,7 @@ public class Chat_Body extends javax.swing.JPanel {
         } else if(data.getMessageType() == 3) {     // Nhận ảnh
             Chat_Left item = new Chat_Left();
             item.setText("");
+            item.setImage();
             item.setTime();
         }
         repaint();
