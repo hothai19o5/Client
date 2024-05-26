@@ -1,6 +1,5 @@
 package component;
 
-import app.MessageType;
 import emoji.Emoji;
 import java.awt.Adjustable;
 import java.awt.Color;
@@ -43,8 +42,9 @@ public class Chat_Body extends javax.swing.JPanel {
         } else if(data.getMessageType() == 3) {     // Nhận ảnh
             Chat_Left item = new Chat_Left();
             item.setText("");
-            item.setImage();
+            item.setImage(data.getDataImage());
             item.setTime();
+            body.add(item, "wrap, w 100::80%");
         }
         repaint();
         revalidate();
@@ -80,10 +80,10 @@ public class Chat_Body extends javax.swing.JPanel {
             body.add(item, "wrap, al right, w 100::80%");   
         } else if (data.getMessageType() == 3) {    // Gửi ảnh
             Chat_Right item = new Chat_Right();
-            item.setImage(data.getFile());
+            item.setImage(data.getFile());  
             item.setText("");
             item.setTime();
-            body.add(item, "wrap, al right");
+            body.add(item, "wrap, al right");   
         }
         repaint();
         revalidate();

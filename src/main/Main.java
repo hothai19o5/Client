@@ -10,6 +10,7 @@ import java.awt.Toolkit;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import model.Model_User_Account;
 import swing.ComponentResizer;
 import service.Service;
@@ -76,7 +77,7 @@ public class Main extends javax.swing.JFrame {
                 view_Image.viewImage(image);
             }
             public void saveImage(Icon image) {
-                System.out.println("Từ từ đợi bé học đoạn này đã nhé");
+                JOptionPane.showMessageDialog(null, "Chưa làm phần này đâu nhé");
             }
         });
     }

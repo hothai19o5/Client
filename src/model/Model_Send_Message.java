@@ -1,5 +1,5 @@
 package model;
-import app.MessageType;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 

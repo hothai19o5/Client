@@ -1,6 +1,5 @@
 package model;
 
-import app.MessageType;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -10,6 +9,14 @@ public class Model_Receive_Message {
     private int fromUserID;     // Gửi từ người dùng có ID là ...
     private String text;    // Nội dung tin nhắn
     private Model_Receive_Image dataImage;  // 
+
+    public Model_Receive_Image getDataImage() {
+        return dataImage;
+    }
+
+    public void setDataImage(Model_Receive_Image dataImage) {
+        this.dataImage = dataImage;
+    }
     
     public int getFromUserID() {
         return fromUserID;

@@ -1,6 +1,5 @@
 package component;
 
-import app.MessageType;
 import event.PublicEvent;
 import java.awt.Color;
 import java.awt.Cursor;

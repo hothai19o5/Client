@@ -3,8 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/admin/Documents/NetBeansProjects/BaiTapLon/src/model/Model_Receive_Message.java</file>
-            <file>file:/C:/Users/admin/Documents/NetBeansProjects/BaiTapLon/src/model/Model_Receive_Image.java</file>
+            <file>file:/C:/Users/admin/Documents/NetBeansProjects/Client/src/component/Chat_Body.java</file>
+            <file>file:/C:/Users/admin/Documents/NetBeansProjects/Client/src/model/Model_Receive_Message.java</file>
+            <file>file:/C:/Users/admin/Documents/NetBeansProjects/Client/src/model/Model_Receive_Image.java</file>
+            <file>file:/C:/Users/admin/Documents/NetBeansProjects/Client/src/component/Chat_Left.java</file>
         </group>
     </open-files>
 </project-private>

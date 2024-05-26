@@ -6,6 +6,7 @@ import event.PublicEvent;
 import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import model.Model_User_Account;
 import net.miginfocom.swing.MigLayout;
 import swing.ScrollBar;
@@ -210,23 +211,24 @@ public class Menu_Left extends javax.swing.JPanel {
     }//GEN-LAST:event_menuMessageActionPerformed
 
     private void menuGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuGroupActionPerformed
-//        if (!menuGroup.isSelected()) {
+        if (!menuGroup.isSelected()) {
 //            menuMessage.setSelected(false);
 //            menuGroup.setSelected(true);
 //            menuBox.setSelected(false);
 //            showGroup();
-//        }
-//          Tính năng này cập nhật sau
+            JOptionPane.showMessageDialog(null, "Tính năng này cập nhật sau");
+        }
+          
     }//GEN-LAST:event_menuGroupActionPerformed
 
     private void menuBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBoxActionPerformed
-//        if (!menuBox.isSelected()) {
+        if (!menuBox.isSelected()) {
 //            menuMessage.setSelected(false);
 //            menuGroup.setSelected(false);
 //            menuBox.setSelected(true);
 //            showBox();
-//        }
-//          Tính năng này cập nhật sau
+            JOptionPane.showMessageDialog(null, "Tính năng này cập nhật sau");
+        }
     }//GEN-LAST:event_menuBoxActionPerformed
 
 
