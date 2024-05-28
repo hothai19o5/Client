@@ -1,12 +1,17 @@
 package component;
 
+import event.EventFileReceiver;
 import event.EventFileSender;
 import swing.BlurHash.BlurHash;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import model.Model_File_Sender;
 import model.Model_Receive_Image;
+import service.Service;
 
 // Phần để hiển thị hình ảnh khi gửi, khi gửi thì hiển thị dạng BlurHash và có Circle Progess
 
@@ -42,6 +47,27 @@ public class Image_Item extends javax.swing.JLayeredPane {
         img.setRGB(0, 0, width, height, data, 0, width);
         Icon icon = new ImageIcon(img);
         pic.setImage(icon);
+        try {
+            Service.getInstance().addFileReceiver(dataImage.getFileID(), new EventFileReceiver() {
+                @Override
+                public void onReceiving(double percentage) {
+                    progress.setValue((int) percentage);
+                }
+
+                @Override
+                public void onStartReceiving() {
+                    
+                }
+
+                @Override
+                public void onFinish(File file) {
+                    progress.setVisible(false);
+                    pic.setImage(new ImageIcon(file.getAbsolutePath()));
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -54,6 +80,11 @@ public class Image_Item extends javax.swing.JLayeredPane {
         progress.setBackground(new java.awt.Color(242, 242, 242));
         progress.setForeground(new java.awt.Color(204, 255, 255));
         progress.setProgressType(swing.Progress.ProgressType.CANCEL);
+        progress.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                progressMouseClicked(evt);
+            }
+        });
 
         pic.setLayer(progress, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
@@ -87,6 +118,11 @@ public class Image_Item extends javax.swing.JLayeredPane {
             .addComponent(pic, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void progressMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_progressMouseClicked
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null, "Không hủy được đâu");
+    }//GEN-LAST:event_progressMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

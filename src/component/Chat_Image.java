@@ -27,15 +27,14 @@ public class Chat_Image extends javax.swing.JPanel {
 
     // Thêm ảnh 
     public void addImage(Model_File_Sender fileSender) {
-        ImageIcon image = new ImageIcon(fileSender.getFile().getAbsolutePath());
+        Icon image = new ImageIcon(fileSender.getFile().getAbsolutePath());
         Image_Item pic = new Image_Item();
         // Kích thước tối đa của ảnh khi ở trong khung chat
-        pic.setPreferredSize(getAutoSize(image, 100, 100));
+        pic.setPreferredSize(getAutoSize(image, 200, 200));
         pic.setImage(image, fileSender);
         // Thêm sự kiện khi bấm vào ảnh 
         addEvent(pic, image);
         add(pic, "wrap");
-
     }
 
     // Thêm ảnh đã mã hóa blurHash

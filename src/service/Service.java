@@ -1,5 +1,6 @@
 package service;
 
+import event.EventFileReceiver;
 import event.PublicEvent;
 import io.socket.client.Socket;
 import io.socket.client.IO;
@@ -9,6 +10,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import model.Model_File_Receiver;
 import model.Model_File_Sender;
 import model.Model_Receive_Message;
 import model.Model_Send_Message;
@@ -24,6 +26,7 @@ public class Service {
     private final String IP = "localhost"; // Nếu muốn chạy trong các máy trong cùng 1 mạng lan thì chỉnh lại IP
     private Model_User_Account user;
     private List<Model_File_Sender> fileSender;     // Danh sách các file cần gửi
+    private List<Model_File_Receiver> fileReceiver;     // Danh sách file nhận
 
     public static Service getInstance() {
         if (instance == null) {
@@ -34,9 +37,10 @@ public class Service {
 
     public Service() {
         fileSender = new ArrayList<>();
+        fileReceiver = new ArrayList<>();
     }
 
-    public void startService() {
+    public void startServer() {
         try {
             // Tạo đối tượng Socket và kết nối tới máy chủ
             client = IO.socket("http://" + IP + ":" + PORT);
@@ -100,6 +104,21 @@ public class Service {
         fileSender.remove(data);    // Xóa cái đã gửi xong khỏi list
         if(!fileSender.isEmpty()){
             fileSender.get(0).initSend();   // Gửi cái tiếp theo
+        }
+    }
+    
+    public void fileReceiveFinish(Model_File_Receiver data) throws IOException {
+        fileReceiver.remove(data);
+        if(!fileReceiver.isEmpty()){
+            fileReceiver.get(0).initReceive();
+        }
+    }
+    
+    public void addFileReceiver(int fileID, EventFileReceiver event) throws IOException {
+        Model_File_Receiver data = new Model_File_Receiver(fileID, client, event);
+        fileReceiver.add(data);
+        if(fileReceiver.size() == 1){
+            data.initReceive();
         }
     }
     

@@ -82,10 +82,10 @@ public class Panel_More extends javax.swing.JPanel {
                 JFileChooser fileChooser = new JFileChooser();
                 fileChooser.setMultiSelectionEnabled(true); // Cho phép chọn nhiều file 
                 fileChooser.setFileFilter(new FileFilter() {     
-                    // Chỉ lọc những file ảnh 
+                    // Chỉ lọc những file ảnh hoặc là thư mục
                     @Override
-                    public boolean accept(File f) {
-                        return isImageFile(f);
+                    public boolean accept(File file) {
+                        return file.isDirectory() || isImageFile(file);
                     }
                     // Phần mô tả cho bộ lọc
                     @Override

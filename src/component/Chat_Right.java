@@ -20,7 +20,6 @@ public class Chat_Right extends javax.swing.JLayeredPane {
             txt.hideText();
         }else{  
             txt.setText(text);
-            txt.sendSuccess();
         }
     }
     // Thêm ảnh

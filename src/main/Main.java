@@ -41,7 +41,7 @@ public class Main extends javax.swing.JFrame {
         home.setVisible(false);
         initEvent();
         // Kết nối client tới server
-        Service.getInstance().startService();
+        Service.getInstance().startServer();
     }
     // Định nghĩa lại các interface
     private void initEvent(){       
@@ -69,13 +69,13 @@ public class Main extends javax.swing.JFrame {
                 home.updateUser(user);
             }
             
-            
         });
         PublicEvent.getInstance().addEventImageView(new EventImageView(){
             @Override
             public void viewImage(Icon image) {
                 view_Image.viewImage(image);
             }
+            @Override
             public void saveImage(Icon image) {
                 JOptionPane.showMessageDialog(null, "Chưa làm phần này đâu nhé");
             }

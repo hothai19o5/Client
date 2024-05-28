@@ -80,8 +80,8 @@ public class Chat_Body extends javax.swing.JPanel {
             body.add(item, "wrap, al right, w 100::80%");   
         } else if (data.getMessageType() == 3) {    // Gửi ảnh
             Chat_Right item = new Chat_Right();
-            item.setImage(data.getFile());  
             item.setText("");
+            item.setImage(data.getFile());  
             item.setTime();
             body.add(item, "wrap, al right");   
         }

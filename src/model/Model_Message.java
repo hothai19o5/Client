@@ -1,9 +1,5 @@
 package model;
 
-/**
- *
- * @author admin
- */
 public class Model_Message {
     private boolean action;
     private String message;

@@ -16,7 +16,6 @@ public class Chat_Left extends javax.swing.JLayeredPane {
             txt.hideText();
         }else{  
             txt.setText(text);
-            txt.sendSuccess();
         }
     }
     // Thêm ảnh 

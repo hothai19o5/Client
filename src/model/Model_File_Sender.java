@@ -28,7 +28,7 @@ public class Model_File_Sender {
         this.file = file;
         // RandomAccessFile đặt ở chế độ mở file chỉ đọc
         this.accessFile = new RandomAccessFile(file, "r");
-        this.fileExtension = getExtension(file.getAbsolutePath().toLowerCase());
+        this.fileExtension = getExtension(file.getName());
         this.fileSize = accessFile.length();
         this.socket = socket;
     }
@@ -70,7 +70,7 @@ public class Model_File_Sender {
 
     public void startSend(int fileID) throws IOException {
         this.fileID = fileID;
-        if(event != null){
+        if (event != null) {
             event.onStartSending();
         }
         sendingFile();
@@ -92,23 +92,24 @@ public class Model_File_Sender {
             //callback xử lý khi có phản hồi bên nhận
             @Override
             public void call(Object... os) {
-                boolean act = (boolean) os[0];
-                if (act) {
-                    try {
-                        if (!data.isFinish()) { // Gửi tiếp
-                            if (event != null) {
-                                event.onSending(getPercentage());   // Tiếp tục hiển thị quá trình gửi
+                if (os.length > 0) {
+                    boolean act = (boolean) os[0];
+                    if (act) {
+                        try {
+                            if (!data.isFinish()) { // Gửi tiếp
+                                if (event != null) {
+                                    event.onSending(getPercentage());   // Tiếp tục hiển thị quá trình gửi
+                                }
+                                sendingFile();
+                            } else {    // Thông báo cho service đã gửi xong
+                                Service.getInstance().fileSendFinish(Model_File_Sender.this);
+                                if (event != null) {
+                                    event.onFinish();   // Gửi xong, ẩn quá trình gửi
+                                }
                             }
-                            sendingFile();
-                        } else {    // Thông báo cho service đã gửi xong
-                            //  File send finish
-                            Service.getInstance().fileSendFinish(Model_File_Sender.this);
-                            if (event != null) {
-                                event.onFinish();   // Gửi xong, ẩn quá trình gửi
-                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
-                    } catch (IOException e) {
-                        e.printStackTrace();
                     }
                 }
             }
@@ -183,8 +184,8 @@ public class Model_File_Sender {
     public void setSocket(Socket socket) {
         this.socket = socket;
     }
-    
-    public void addEvent(EventFileSender event){
+
+    public void addEvent(EventFileSender event) {
         this.event = event;
     }
 
