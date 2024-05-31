@@ -19,17 +19,18 @@ import service.Service;
 
 /**
  *
- * @author Ho Xuan Thai 
+ * @author Ho Xuan Thai
  */
 public class Main extends javax.swing.JFrame {
-     
+
     private boolean isFullScreen = false; // Biến để kiểm tra trạng thái toàn màn hình
 
     public Main() {
         initComponents();
         init();
     }
-    private void init(){
+
+    private void init() {
         // Đoạn này để thay cái icon java bằng icon của mình
         setIconImage(new ImageIcon(getClass().getResource("/icon/icon_app2.png")).getImage());
         // Đoạn này để setting lại cái khung mới
@@ -47,8 +48,9 @@ public class Main extends javax.swing.JFrame {
         // Kết nối client tới server
         Service.getInstance().startServer();
     }
+
     // Định nghĩa lại các interface
-    private void initEvent(){       
+    private void initEvent() {
         PublicEvent.getInstance().addEventMain(new EventMain() {
             @Override
             public void showLoading(boolean show) {
@@ -72,13 +74,14 @@ public class Main extends javax.swing.JFrame {
             public void updateUser(Model_User_Account user) {
                 home.updateUser(user);
             }
-            
+
         });
-        PublicEvent.getInstance().addEventImageView(new EventImageView(){
+        PublicEvent.getInstance().addEventImageView(new EventImageView() {
             @Override
             public void viewImage(Icon image) {
                 view_Image.viewImage(image);
             }
+
             @Override
             public void saveImage(Icon image) {
                 JOptionPane.showMessageDialog(null, "Chưa làm phần này đâu nhé");
@@ -264,23 +267,22 @@ public class Main extends javax.swing.JFrame {
     private void cmdFullScreenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdFullScreenActionPerformed
         // TODO add your handling code here:
         GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-    if (isFullScreen) {
-        // Exit full screen mode
-        device.setFullScreenWindow(null);
-        this.dispose(); // Hide the frame to change the undecorated property
-        setUndecorated(false);
-        setVisible(true); // Show the frame again
-    } else {
-        // Enter full screen mode
-        this.dispose(); // Hide the frame to change the undecorated property
-        setUndecorated(true);
-        setVisible(true); // Show the frame again
-        device.setFullScreenWindow(this);
-    }
-    isFullScreen = !isFullScreen;
+        if (isFullScreen) {
+            // Exit full screen mode
+            device.setFullScreenWindow(null);
+//            this.dispose(); // Hide the frame to change the undecorated property
+//            setUndecorated(false);
+//            setVisible(true); // Show the frame again
+        } else {
+            // Enter full screen mode
+//            this.dispose(); // Hide the frame to change the undecorated property
+//            setUndecorated(true);
+//            setVisible(true); // Show the frame again
+            device.setFullScreenWindow(this);
+        }
+        isFullScreen = !isFullScreen;
     }//GEN-LAST:event_cmdFullScreenActionPerformed
 
-   
     public static void main(String args[]) {
         FlatArcIJTheme.setup();
         java.awt.EventQueue.invokeLater(new Runnable() {
