@@ -37,9 +37,9 @@ public class Chat_Right extends javax.swing.JLayeredPane {
         int minute = currentTime.getMinute();
         txt.setTime(hour + ":" + minute);
     }
-    public void setFile(String fileName, String fileSize){
-        txt.setFile(fileName, fileSize);
-    }
+//    public void setFile(String fileName, String fileSize){
+//        txt.setFile(fileName, fileSize);
+//    }
     public void setEmoji(Icon icon){
         txt.hideText();
         txt.setEmoji(true, icon);

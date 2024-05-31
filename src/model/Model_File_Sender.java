@@ -62,7 +62,8 @@ public class Model_File_Sender {
                         startSend(fileID);
                     } catch (IOException e) {
                         e.printStackTrace();
-                    }
+                    }               
+                    System.out.println("Model_File_Sender.initSend() hoat dong");
                 }
             }
         });
@@ -72,8 +73,10 @@ public class Model_File_Sender {
         this.fileID = fileID;
         if (event != null) {
             event.onStartSending();
+            System.out.println("Model_File_Sender.startSend() onStartSending");
         }
         sendingFile();
+        System.out.println("Model_File_Sender.startSend() sendingFile");
     }
 
     public void sendingFile() throws IOException {
@@ -96,21 +99,22 @@ public class Model_File_Sender {
                     boolean act = (boolean) os[0];
                     if (act) {
                         try {
-                            if (!data.isFinish()) { // Gửi tiếp
+                            if (!data.isFinish()) { // Cập nhật
                                 if (event != null) {
-                                    event.onSending(getPercentage());   // Tiếp tục hiển thị quá trình gửi
+                                    event.onSending(getPercentage());   // Cập nhật progess
                                 }
                                 sendingFile();
                             } else {    // Thông báo cho service đã gửi xong
                                 Service.getInstance().fileSendFinish(Model_File_Sender.this);
                                 if (event != null) {
-                                    event.onFinish();   // Gửi xong, ẩn quá trình gửi
+                                    event.onFinish();   // Gửi xong, ẩn progess
                                 }
                             }
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
+                    System.out.println("Model_File_Sender.sendingFile() emit(send_file)");
                 }
             }
         });

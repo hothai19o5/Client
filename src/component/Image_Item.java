@@ -52,17 +52,19 @@ public class Image_Item extends javax.swing.JLayeredPane {
                 @Override
                 public void onReceiving(double percentage) {
                     progress.setValue((int) percentage);
+                    System.out.println("Client request file onReceiving");
                 }
 
                 @Override
                 public void onStartReceiving() {
-                    
+                    System.out.println("Client request file onReceiving");
                 }
 
                 @Override
                 public void onFinish(File file) {
                     progress.setVisible(false);
                     pic.setImage(new ImageIcon(file.getAbsolutePath()));
+                    System.out.println("Client request file onFinish");
                 }
             });
         } catch (IOException e) {

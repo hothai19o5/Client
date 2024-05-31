@@ -90,41 +90,41 @@ public class Chat_Body extends javax.swing.JPanel {
     }
 
     // Thêm tin nhắn vào bên trái ( người khác nhắn tới ), có gửi file
-    public void addItemFileLeft(String text, String user, String fileName, String fileSize) {
-        Chat_Left_With_Profile item = new Chat_Left_With_Profile();
-        item.setText(text);
-        item.setFile(fileName, fileSize);
-        item.setTime();
-        item.setUserProfile(user);
-        // Đoạn này là để cho cái đoạn tin nhắn có thể xuống dòng 
-        body.add(item, "wrap, w 100::80%");
-        body.repaint();
-        body.revalidate();
-    }
+//    public void addItemFileLeft(String text, String user, String fileName, String fileSize) {
+//        Chat_Left_With_Profile item = new Chat_Left_With_Profile();
+//        item.setText(text);
+//        item.setFile(fileName, fileSize);
+//        item.setTime();
+//        item.setUserProfile(user);
+//        // Đoạn này là để cho cái đoạn tin nhắn có thể xuống dòng 
+//        body.add(item, "wrap, w 100::80%");
+//        body.repaint();
+//        body.revalidate();
+//    }
 
     // Thêm tin nhắn vào bên phải ( mình gửi), có gửi file
-    public void addItemFileRight(String text, String fileName, String fileSize) {
-        Chat_Right item = new Chat_Right();
-        // text
-        item.setText(text);
-        // file
-        item.setFile(fileName, fileSize);
-        // thời điểm gửi
-        item.setTime();
-        // Đoạn này là để cho cái đoạn tin nhắn có thể xuống dòng 
-        body.add(item, "wrap, al right, w 100::80%");
-        body.repaint();
-        body.revalidate();
-    }
+//    public void addItemFileRight(String text, String fileName, String fileSize) {
+//        Chat_Right item = new Chat_Right();
+//        // text
+//        item.setText(text);
+//        // file
+//        item.setFile(fileName, fileSize);
+//        // thời điểm gửi
+//        item.setTime();
+//        // Đoạn này là để cho cái đoạn tin nhắn có thể xuống dòng 
+//        body.add(item, "wrap, al right, w 100::80%");
+//        body.repaint();
+//        body.revalidate();
+//    }
 
-    public void addDate(String date) {
-        Chat_Date item = new Chat_Date();
-        item.setDate(date);
-        // Nếu không có "wrap, al.." thì sẽ tách dòng giữa tin nhắn và ngày
-        body.add(item, "wrap, al center");
-        body.repaint();
-        body.revalidate();
-    }
+//    public void addDate(String date) {
+//        Chat_Date item = new Chat_Date();
+//        item.setDate(date);
+//        // Nếu không có "wrap, al.." thì sẽ tách dòng giữa tin nhắn và ngày
+//        body.add(item, "wrap, al center");
+//        body.repaint();
+//        body.revalidate();
+//    }
 
     public void clearChat() {
         body.removeAll();

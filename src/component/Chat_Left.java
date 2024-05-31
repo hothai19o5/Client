@@ -18,11 +18,11 @@ public class Chat_Left extends javax.swing.JLayeredPane {
             txt.setText(text);
         }
     }
-    // Thêm ảnh 
-    public void setImage(Icon... images){
-//        txt.setImage(false, images);
-//        update late
-    }
+//    // Thêm ảnh 
+//    public void setImage(Icon... images){
+////        txt.setImage(false, images);
+////        update late
+//    }
     // Thêm ảnh đã mã hóa
     public void setImage(Model_Receive_Image dataImage){
         txt.setImage(false, dataImage);

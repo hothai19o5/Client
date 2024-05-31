@@ -89,13 +89,14 @@ public class Service {
             System.out.println(e);
         }
     }
-    
+    // Thêm file vào danh sách gửi và gửi đi
     public Model_File_Sender addFile(File file, Model_Send_Message message) throws IOException{
         Model_File_Sender data = new Model_File_Sender(message, file, client);
         message.setFile(data);
         fileSender.add(data);
         if(fileSender.size() == 1){ // Gửi từng file một
             data.initSend();
+            System.out.println("Client service addFile");
         }
         return data;
     }
@@ -104,13 +105,16 @@ public class Service {
         fileSender.remove(data);    // Xóa cái đã gửi xong khỏi list
         if(!fileSender.isEmpty()){
             fileSender.get(0).initSend();   // Gửi cái tiếp theo
+            System.out.println("Client service fileSendFinish");
         }
     }
     
     public void fileReceiveFinish(Model_File_Receiver data) throws IOException {
         fileReceiver.remove(data);
         if(!fileReceiver.isEmpty()){
+            System.out.println("fileReceiver isn't Empty");
             fileReceiver.get(0).initReceive();
+            System.out.println("Client service fileReceiveFinish");
         }
     }
     
@@ -118,7 +122,9 @@ public class Service {
         Model_File_Receiver data = new Model_File_Receiver(fileID, client, event);
         fileReceiver.add(data);
         if(fileReceiver.size() == 1){
+            System.out.println("fileReceiver.size() == 1");
             data.initReceive();
+            System.out.println("Client service addFileReceiver");
         }
     }
     

@@ -5,6 +5,8 @@ import event.EventImageView;
 import event.EventMain;
 import event.PublicEvent;
 import java.awt.Dimension;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.Icon;
@@ -20,6 +22,8 @@ import service.Service;
  * @author Ho Xuan Thai 
  */
 public class Main extends javax.swing.JFrame {
+     
+    private boolean isFullScreen = false; // Biến để kiểm tra trạng thái toàn màn hình
 
     public Main() {
         initComponents();
@@ -91,6 +95,7 @@ public class Main extends javax.swing.JFrame {
         title = new javax.swing.JPanel();
         cmdMinimize = new javax.swing.JButton();
         cmdClose = new javax.swing.JButton();
+        cmdFullScreen = new javax.swing.JButton();
         body = new javax.swing.JLayeredPane();
         loading = new form.Loading();
         login = new form.Login();
@@ -121,6 +126,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        cmdMinimize.setBackground(new java.awt.Color(187, 187, 187));
         cmdMinimize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-minimize-20.png"))); // NOI18N
         cmdMinimize.setBorder(null);
         cmdMinimize.setContentAreaFilled(false);
@@ -141,21 +147,37 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        cmdFullScreen.setBackground(new java.awt.Color(229, 229, 229));
+        cmdFullScreen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-full-screen-20.png"))); // NOI18N
+        cmdFullScreen.setBorder(null);
+        cmdFullScreen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cmdFullScreen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdFullScreenActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout titleLayout = new javax.swing.GroupLayout(title);
         title.setLayout(titleLayout);
         titleLayout.setHorizontalGroup(
             titleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, titleLayout.createSequentialGroup()
-                .addContainerGap(841, Short.MAX_VALUE)
+                .addContainerGap(815, Short.MAX_VALUE)
                 .addComponent(cmdMinimize)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cmdFullScreen)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cmdClose)
                 .addContainerGap())
         );
         titleLayout.setVerticalGroup(
             titleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-            .addComponent(cmdMinimize)
-            .addComponent(cmdClose)
+            .addGroup(titleLayout.createSequentialGroup()
+                .addGap(3, 3, 3)
+                .addGroup(titleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cmdFullScreen)
+                    .addComponent(cmdMinimize)
+                    .addComponent(cmdClose)))
         );
 
         body.setLayout(new java.awt.CardLayout());
@@ -180,7 +202,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(backgroundLayout.createSequentialGroup()
                 .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(body, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
+                .addComponent(body, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -239,6 +261,25 @@ public class Main extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_backgroundMouseDragged
 
+    private void cmdFullScreenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdFullScreenActionPerformed
+        // TODO add your handling code here:
+        GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+    if (isFullScreen) {
+        // Exit full screen mode
+        device.setFullScreenWindow(null);
+        this.dispose(); // Hide the frame to change the undecorated property
+        setUndecorated(false);
+        setVisible(true); // Show the frame again
+    } else {
+        // Enter full screen mode
+        this.dispose(); // Hide the frame to change the undecorated property
+        setUndecorated(true);
+        setVisible(true); // Show the frame again
+        device.setFullScreenWindow(this);
+    }
+    isFullScreen = !isFullScreen;
+    }//GEN-LAST:event_cmdFullScreenActionPerformed
+
    
     public static void main(String args[]) {
         FlatArcIJTheme.setup();
@@ -255,6 +296,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLayeredPane body;
     private javax.swing.JPanel border;
     private javax.swing.JButton cmdClose;
+    private javax.swing.JButton cmdFullScreen;
     private javax.swing.JButton cmdMinimize;
     private form.Home home;
     private form.Loading loading;

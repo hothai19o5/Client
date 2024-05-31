@@ -30,7 +30,7 @@ public class Chat_Image extends javax.swing.JPanel {
         Icon image = new ImageIcon(fileSender.getFile().getAbsolutePath());
         Image_Item pic = new Image_Item();
         // Kích thước tối đa của ảnh khi ở trong khung chat
-        pic.setPreferredSize(getAutoSize(image, 200, 200));
+        pic.setPreferredSize(getAutoSize(image, 100, 100));
         pic.setImage(image, fileSender);
         // Thêm sự kiện khi bấm vào ảnh 
         addEvent(pic, image);
@@ -42,6 +42,7 @@ public class Chat_Image extends javax.swing.JPanel {
         Image_Item pic = new Image_Item();
         pic.setPreferredSize(new Dimension(dataImage.getWidth(), dataImage.getHeight()));
         pic.setImage(dataImage);
+//        addEvent(pic, image);
         add(pic, "wrap");
     }
 

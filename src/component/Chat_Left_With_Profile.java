@@ -36,9 +36,9 @@ public class Chat_Left_With_Profile extends javax.swing.JLayeredPane {
     public void setImage(String... images){
 //        txt.setImage(false, images);
     }
-    public void setFile(String fileName, String fileSize){
-        txt.setFile(fileName, fileSize);
-    }
+//    public void setFile(String fileName, String fileSize){
+//        txt.setFile(fileName, fileSize);
+//    }
     // Thời điểm gửi tin nhắn
     public void setTime(){
         LocalTime currentTime = LocalTime.now();
