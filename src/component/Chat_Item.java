@@ -14,6 +14,7 @@ import javax.swing.JLayer;
 import javax.swing.JLayeredPane;
 import javax.swing.border.EmptyBorder;
 import model.Model_File_Sender;
+import model.Model_Receive_File;
 import model.Model_Receive_Image;
 import net.miginfocom.swing.MigLayout;
 
@@ -93,16 +94,25 @@ public class Chat_Item extends javax.swing.JLayeredPane {
         add(layer);
     }
 
-//    // Gửi file ( Thêm file vào khung chat, không phải sự kiện );
-//    public void setFile(String fileName, String fileSize) {
-//        JLayeredPane layer = new JLayeredPane();
-//        layer.setLayout(new FlowLayout(FlowLayout.LEFT));
-//        layer.setBorder(new EmptyBorder(5, 5, 0, 5));
-//        Chat_File chatFile = new Chat_File();
-//        chatFile.setFile(fileName, fileSize);
-//        layer.add(chatFile);
-//        add(layer);
-//    }
+    public void setFile(boolean right, Model_Receive_File dataFile) {
+        JLayeredPane layer = new JLayeredPane();
+        layer.setLayout(new FlowLayout(right ? FlowLayout.RIGHT : FlowLayout.LEFT));
+        layer.setBorder(new EmptyBorder(5, 5, 5, 5));
+        Chat_File chatFile = new Chat_File();
+        chatFile.setFile(dataFile.getFileID()+"");
+        layer.add(chatFile);
+        add(layer);
+    }
+    
+    public void setFile(boolean right, Model_File_Sender dataFile) {
+        JLayeredPane layer = new JLayeredPane();
+        layer.setLayout(new FlowLayout(right ? FlowLayout.RIGHT : FlowLayout.LEFT));
+        layer.setBorder(new EmptyBorder(5, 5, 5, 5));
+        Chat_File chatFile = new Chat_File();
+        chatFile.setFile(dataFile.getFileID()+"");
+        layer.add(chatFile);
+        add(layer);
+    }
 
     // Gửi emoji ( Thêm cái emoji vòa đoạn chat, không phải sự kiện gửi )
     public void setEmoji(boolean right, Icon icon) {

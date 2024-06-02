@@ -80,7 +80,9 @@ public class Service {
                     // Tạo tin nhắn nhận được từ đối tượng đầu vào
                     Model_Receive_Message message = new Model_Receive_Message(os[0]);
                     // Gửi tin nhắn nhận được cho EventChat
+                    System.out.println("Client Service receive_ms");
                     PublicEvent.getInstance().getEventChat().receiveMessage(message);
+                    System.out.println("Client Service receive_ms");
                 }
             });
             // Mở kết nối tới máy chủ
@@ -89,14 +91,25 @@ public class Service {
             System.out.println(e);
         }
     }
-    // Thêm file vào danh sách gửi và gửi đi
-    public Model_File_Sender addFile(File file, Model_Send_Message message) throws IOException{
+    // Thêm fileImage vào danh sách gửi và gửi đi
+    public Model_File_Sender addFileImage(File file, Model_Send_Message message) throws IOException{
+        System.out.println("Client Service addFileImage");
         Model_File_Sender data = new Model_File_Sender(message, file, client);
         message.setFile(data);
         fileSender.add(data);
         if(fileSender.size() == 1){ // Gửi từng file một
-            data.initSend();
-            System.out.println("Client service addFile");
+            data.initSendImage();
+        }
+        return data;
+    }
+    // Thêm fileImage vào danh sách gửi và gửi đi
+    public Model_File_Sender addFileFile(File file, Model_Send_Message message) throws IOException{
+        System.out.println("Client Service addFileFile");
+        Model_File_Sender data = new Model_File_Sender(message, file, client);
+        message.setFile(data);
+        fileSender.add(data);
+        if(fileSender.size() == 1){ // Gửi từng file một
+            data.initSendFile();
         }
         return data;
     }
@@ -104,27 +117,25 @@ public class Service {
     public void fileSendFinish(Model_File_Sender data) throws IOException {
         fileSender.remove(data);    // Xóa cái đã gửi xong khỏi list
         if(!fileSender.isEmpty()){
-            fileSender.get(0).initSend();   // Gửi cái tiếp theo
-            System.out.println("Client service fileSendFinish");
+            System.out.println("Client Service fileSendFinish");
+            fileSender.get(0).initSendImage();   // Gửi cái tiếp theo
         }
     }
     
     public void fileReceiveFinish(Model_File_Receiver data) throws IOException {
+        System.out.println("Client Service fileReceiveFinish");
         fileReceiver.remove(data);
         if(!fileReceiver.isEmpty()){
-            System.out.println("fileReceiver isn't Empty");
             fileReceiver.get(0).initReceive();
-            System.out.println("Client service fileReceiveFinish");
         }
     }
     
     public void addFileReceiver(int fileID, EventFileReceiver event) throws IOException {
+        System.out.println("Client Service addFileReceiver");
         Model_File_Receiver data = new Model_File_Receiver(fileID, client, event);
         fileReceiver.add(data);
         if(fileReceiver.size() == 1){
-            System.out.println("fileReceiver.size() == 1");
             data.initReceive();
-            System.out.println("Client service addFileReceiver");
         }
     }
     

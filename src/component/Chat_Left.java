@@ -3,6 +3,7 @@ package component;
 import java.awt.Color;
 import javax.swing.Icon;
 import java.time.LocalTime;
+import model.Model_Receive_File;
 import model.Model_Receive_Image;
 
 public class Chat_Left extends javax.swing.JLayeredPane {
@@ -31,6 +32,11 @@ public class Chat_Left extends javax.swing.JLayeredPane {
     public void setEmoji(Icon icon){
         txt.hideText();
         txt.setEmoji(false, icon);
+    }
+    // Thêm file
+    public void setFile(Model_Receive_File dataFile) {
+        System.out.println("Client Chat_Left setFile");
+        txt.setFile(false, dataFile);
     }
     // Thời điểm gửi tin nhắn
     public void setTime(){

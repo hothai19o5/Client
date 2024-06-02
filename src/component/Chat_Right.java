@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.time.LocalTime;
 import javax.swing.Icon;
 import model.Model_File_Sender;
+import model.Model_Receive_File;
 
 /*
     Gửi tin, không cần có ảnh đại diện vì là mình gửi
@@ -29,6 +30,10 @@ public class Chat_Right extends javax.swing.JLayeredPane {
     // Thêm ảnh đã mã hóa
     public void setImage(String... images){
 //        txt.setImage(true, images);
+    }
+    // Thêm file
+    public void setFile(Model_File_Sender dataFile) {
+        txt.setFile(true, dataFile);
     }
     // Thời điểm gửi tin nhắn
     public void setTime(){

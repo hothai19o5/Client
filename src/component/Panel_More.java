@@ -102,7 +102,7 @@ public class Panel_More extends javax.swing.JPanel {
                             // Tạo gói tin với thông tin ID người gửi, người nhận, kiểu tin nhắn
                             Model_Send_Message message = new Model_Send_Message(Service.getInstance().getUser().getUserID(), user.getUserID(), "", 3);
                             // Gửi file cùng với các thông tin
-                            Service.getInstance().addFile(file, message);
+                            Service.getInstance().addFileImage(file, message);
                             PublicEvent.getInstance().getEventChat().sendMessage(message);
                         }
                     } catch (IOException ie) {
@@ -122,8 +122,35 @@ public class Panel_More extends javax.swing.JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fileChooser = new JFileChooser();
-                fileChooser.showOpenDialog(Main.getFrames()[0]); // Mở một ô để chọn file
-                // Phần này là để gửi file, sẽ update sau ( nếu đủ sức )
+                fileChooser.setMultiSelectionEnabled(true); // Cho phép chọn nhiều file 
+                fileChooser.setFileFilter(new FileFilter() {     
+                    // Lọc file hoặc là thư mục
+                    @Override
+                    public boolean accept(File file) {
+                        return file.isDirectory() || file.isFile();
+                    }
+                    // Phần mô tả cho bộ lọc
+                    @Override
+                    public String getDescription() {
+                        return "File";
+                    }
+
+                });
+                int ch = fileChooser.showOpenDialog(Main.getFrames()[0]); // Mở một ô để chọn file
+                if (ch == JFileChooser.APPROVE_OPTION) {
+                    File files[] = fileChooser.getSelectedFiles();  // Các file đã chọn
+                    try {
+                        for (File file : files) {   // Gửi từng file đi
+                            // Tạo gói tin với thông tin ID người gửi, người nhận, kiểu tin nhắn
+                            Model_Send_Message message = new Model_Send_Message(Service.getInstance().getUser().getUserID(), user.getUserID(), "", 4);
+                            // Gửi file cùng với các thông tin
+                            Service.getInstance().addFileFile(file, message);
+                            PublicEvent.getInstance().getEventChat().sendMessage(message);
+                        }
+                    } catch (IOException ie) {
+                        ie.printStackTrace();
+                    }
+                }
             }
         });
         return cmd;

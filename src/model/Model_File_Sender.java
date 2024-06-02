@@ -48,8 +48,8 @@ public class Model_File_Sender {
         }
     }
 
-    // Gửi File 
-    public void initSend() throws IOException {
+    // Gửi File Image
+    public void initSendImage() throws IOException {
         // Gửi một sự kiện "send_to_user" kèm theo dữ liệu message dưới dạng JSON object
         socket.emit("send_to_user", message.toJsonObject(), new Ack() {
             @Override
@@ -59,17 +59,48 @@ public class Model_File_Sender {
                     // Lấy fileID từ phản hồi đầu tiên
                     int fileID = (int) os[0];
                     try {
-                        startSend(fileID);
+                        startSendImage(fileID);
                     } catch (IOException e) {
                         e.printStackTrace();
-                    }               
+                    }
                     System.out.println("Model_File_Sender.initSend() hoat dong");
                 }
             }
         });
     }
 
-    public void startSend(int fileID) throws IOException {
+    // Gửi File Image
+    public void initSendFile() throws IOException {
+        // Gửi một sự kiện "send_to_user" kèm theo dữ liệu message dưới dạng JSON object
+        socket.emit("send_to_user", message.toJsonObject(), new Ack() {
+            @Override
+            public void call(Object... os) {
+                // Kiểm tra xem có phản hồi trả về không
+                if (os.length > 0) {
+                    // Lấy fileID từ phản hồi đầu tiên
+                    int fileID = (int) os[0];
+                    try {
+                        startSendFile(fileID);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println("Model_File_Sender.initSend() hoat dong");
+                }
+            }
+        });
+    }
+
+    public void startSendImage(int fileID) throws IOException {
+        this.fileID = fileID;
+        if (event != null) {
+            event.onStartSending();
+            System.out.println("Model_File_Sender.startSend() onStartSending");
+        }
+        sendingImage();
+        System.out.println("Model_File_Sender.startSend() sendingFile");
+    }
+
+    public void startSendFile(int fileID) throws IOException {
         this.fileID = fileID;
         if (event != null) {
             event.onStartSending();
@@ -77,6 +108,49 @@ public class Model_File_Sender {
         }
         sendingFile();
         System.out.println("Model_File_Sender.startSend() sendingFile");
+    }
+
+    public void sendingImage() throws IOException {
+        Model_Package_Sender data = new Model_Package_Sender();
+        data.setFileID(fileID);
+        byte[] bytes = readFile();  // Đọc dữ liệu cần truyền vào mảng bytes
+        if (bytes != null) {    // Nếu có dữ liệu
+            data.setData(bytes);
+            data.setFinish(false);
+        } else {
+            data.setFinish(true);
+            accessFile.close();     // Đóng truy cập vào file
+        }
+
+        // Gửi dữ liệu ( đã được chuyển sang JSON )
+        socket.emit("send_image", data.toJSONObject(), new Ack() {
+            //callback xử lý khi có phản hồi bên nhận
+            @Override
+            public void call(Object... os) {
+                System.out.println("Client Model_File_Sender send_image");
+                if (os.length > 0) {
+                    boolean act = (boolean) os[0];
+                    if (act) {
+                        try {
+                            if (!data.isFinish()) { // Cập nhật
+                                if (event != null) {
+                                    event.onSending(getPercentage());   // Cập nhật progess
+                                }
+                                sendingImage();
+                            } else {    // Thông báo cho service đã gửi xong
+                                Service.getInstance().fileSendFinish(Model_File_Sender.this);
+                                if (event != null) {
+                                    event.onFinish();   // Gửi xong, ẩn progess
+                                }
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        });
+
     }
 
     public void sendingFile() throws IOException {
@@ -90,11 +164,13 @@ public class Model_File_Sender {
             data.setFinish(true);
             accessFile.close();     // Đóng truy cập vào file
         }
+
         // Gửi dữ liệu ( đã được chuyển sang JSON )
         socket.emit("send_file", data.toJSONObject(), new Ack() {
             //callback xử lý khi có phản hồi bên nhận
             @Override
             public void call(Object... os) {
+                System.out.println("Client Model_File_Sender send_file");
                 if (os.length > 0) {
                     boolean act = (boolean) os[0];
                     if (act) {
@@ -114,7 +190,6 @@ public class Model_File_Sender {
                             e.printStackTrace();
                         }
                     }
-                    System.out.println("Model_File_Sender.sendingFile() emit(send_file)");
                 }
             }
         });

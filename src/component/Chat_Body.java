@@ -40,11 +40,20 @@ public class Chat_Body extends javax.swing.JPanel {
             item.setEmoji(Emoji.getInstance().getEmoji(Integer.valueOf(data.getText())).getIcon());
             body.add(item, "wrap, w 100::80%");
         } else if(data.getMessageType() == 3) {     // Nhận ảnh
+            System.out.println("Client Chat_Body addItemLeft Type = 3");
             Chat_Left item = new Chat_Left();
             item.setText("");
             item.setImage(data.getDataImage());
             item.setTime();
             body.add(item, "wrap, w 100::80%");
+        } else if(data.getMessageType() == 4) {     // File
+            System.out.println("Client Chat_Body addItemLeft Type = 4");
+            Chat_Left item = new Chat_Left();
+            item.setText("");
+            item.setFile(data.getDataFile());
+            item.setTime();
+            body.add(item, "wrap, w 100::80%");
+            
         }
         repaint();
         revalidate();
@@ -84,6 +93,12 @@ public class Chat_Body extends javax.swing.JPanel {
             item.setImage(data.getFile());  
             item.setTime();
             body.add(item, "wrap, al right");   
+        } else if(data.getMessageType() == 4) {     // File
+            Chat_Right item = new Chat_Right();
+            item.setText("");
+            item.setFile(data.getFile());
+            item.setTime();
+            body.add(item, "wrap, al right");  
         }
         repaint();
         revalidate();

@@ -3,9 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/admin/Documents/NetBeansProjects/Client/src/form/Home.java</file>
-            <file>file:/C:/Users/admin/Documents/NetBeansProjects/Client/src/main/Main.java</file>
-            <file>file:/C:/Users/admin/Documents/NetBeansProjects/Client/src/swing/ComponentResizer.java</file>
+            <file>file:/C:/Users/admin/Documents/NetBeansProjects/Client/src/model/Model_Receive_File.java</file>
+            <file>file:/C:/Users/admin/Documents/NetBeansProjects/Client/src/component/Panel_More.java</file>
+            <file>file:/C:/Users/admin/Documents/NetBeansProjects/Client/src/model/Model_Receive_Message.java</file>
+            <file>file:/C:/Users/admin/Documents/NetBeansProjects/Client/src/model/Model_File_Receiver.java</file>
+            <file>file:/C:/Users/admin/Documents/NetBeansProjects/Client/src/service/Service.java</file>
+            <file>file:/C:/Users/admin/Documents/NetBeansProjects/Client/src/form/Chat.java</file>
+            <file>file:/C:/Users/admin/Documents/NetBeansProjects/Client/src/model/Model_File_Sender.java</file>
+            <file>file:/C:/Users/admin/Documents/NetBeansProjects/Client/src/model/Model_Receive_Image.java</file>
         </group>
     </open-files>
 </project-private>

@@ -28,13 +28,16 @@ public class Chat extends javax.swing.JPanel {
             public void sendMessage(Model_Send_Message data) {
                 // Khi gửi tin nhắn thì thêm tin nhắn vào bên phải
                 chatBody.addItemRight(data);
+                System.out.println("Client Chat sendMessage");
             }
 
             @Override
             public void receiveMessage(Model_Receive_Message data) {
                 if(data.getFromUserID() == chatTitle.getUser().getUserID()){
                     // Nếu người gửi trùng với người mà mình đang click chuột đến thì mới hiện tin nhắn 
+                    System.out.println("Client Chat receiveMessage");
                     chatBody.addItemLeft(data);
+                    System.out.println("Client Chat receiveMessage");
                 }
             }
             

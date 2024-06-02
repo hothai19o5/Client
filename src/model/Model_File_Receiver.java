@@ -30,21 +30,18 @@ public class Model_File_Receiver {
     }
     
     public void initReceive() {
-        System.out.println("Client Model_File_Receiver initReceive");
         socket.emit("get_file", fileID, new Ack() {
             @Override
             public void call(Object... os) {
-                System.out.println("Client Model_File_Receiver initReceive call back");
                 if(os.length > 0){
-                    System.out.println("Client Model_File_Receiver initReceive call back os.length > 0");
                     try {
+                        System.out.println("Client Model_File_Receiver initReceive");
                         fileExtension = os[0].toString();
                         fileSize = (int) os[1];
                         file = new File(PATH_FILE + fileID + fileExtension);
                         accessFile = new RandomAccessFile(file, "rw");
                         event.onStartReceiving();
                         startSaveFile();
-                        System.out.println("Client Model_File_Receiver initReceive"); 
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -55,23 +52,21 @@ public class Model_File_Receiver {
     
     public void startSaveFile() throws IOException {
         Model_Request_File data = new Model_Request_File(fileID, accessFile.length());
-        System.out.println("Client Model_File_Receiver startSaveFile");
         socket.emit("request_file", data.toJsonObject(), new Ack() {
             @Override
             public void call(Object... os) {
                 try {
+                    System.out.println("Client Model_File_Receiver startSaveFile");
                     if(os.length > 0){
                         byte[] data = (byte[]) os[0];  // Lấy mảng byte gửi tới
                         writeFile(data);   // Ghi thêm dữ liệu vào mảng byte nhận được 
                         event.onReceiving(getPercentage());
                         startSaveFile();
-                        System.out.println("Client request_file call back onReceiving");
                     }else{
                         close();
                         event.onFinish(new File(PATH_FILE + fileID + fileExtension));
                         // Truyền xong rồi thì xóa khỏi Map
                         Service.getInstance().fileReceiveFinish(Model_File_Receiver.this);
-                        System.out.println("Client request_file call back onFinish");
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
