@@ -15,6 +15,9 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.text.BadLocationException;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyleContext;
 import model.Model_Send_Message;
 import model.Model_User_Account;
 import net.miginfocom.swing.MigLayout;
@@ -52,13 +55,14 @@ public class Chat_Bottom extends javax.swing.JPanel {
         scroll.setBorder(null); // bỏ cái viền của vùng cuộn
         scroll.setVerticalScrollBar(new ScrollBar()); // sử dụng cái scrollBar của mình
         JIMSendTextPane txt = new JIMSendTextPane();// Khung nhập văn bản tùy chỉnh
+        setFontForJIMSendTextPane(txt, "JetBrains Mono", 12);
         // khi nhắn tin phần chatBottom có thể tự mở rộng
         txt.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {// Khi người dùng gõ phím
                 revalidate();// Làm mới bố cục để cập nhật kích thước
                 // Nếu nhấn phím Enter thì xuống dòng, nhấn shift enter là gửi
-                if(e.getKeyChar() == 10 && e.isShiftDown()){
+                if (e.getKeyChar() == 10 && e.isShiftDown()) {
                     sendEvent(txt);
                 }
             }
@@ -115,6 +119,7 @@ public class Chat_Bottom extends javax.swing.JPanel {
         panelMore.setVisible(false);
         add(panelMore, "dock south, h 0!");
     }
+
     // Sự kiện gửi tin nhắn
     private void sendEvent(JIMSendTextPane txt) {
         String text = txt.getText().trim();// Lấy nội dung từ khung nhập văn bản, bỏ đoạn trắng 2 đầu
@@ -130,6 +135,17 @@ public class Chat_Bottom extends javax.swing.JPanel {
         } else {// Nếu nội dung rỗng, chỉ cần đặt con trỏ vào khung nhập văn bản
             txt.grabFocus();
         }
+    }
+
+    // Thay đổi font chữ của txt
+    public static void setFontForJIMSendTextPane(JIMSendTextPane textPane, String fontName, int fontSize) {
+        StyleContext context = new StyleContext();
+        Style style = context.addStyle("default", null);
+
+        StyleConstants.setFontFamily(style, fontName);
+        StyleConstants.setFontSize(style, fontSize);
+
+        textPane.setCharacterAttributes(style, true);
     }
 
 //    // Phương thức gửi tin nhắn ( Không cần, cho thẳng vào luôn )

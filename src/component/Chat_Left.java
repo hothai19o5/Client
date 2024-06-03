@@ -26,6 +26,7 @@ public class Chat_Left extends javax.swing.JLayeredPane {
 //    }
     // Thêm ảnh đã mã hóa
     public void setImage(Model_Receive_Image dataImage){
+        System.out.println("Client Chat_Left setImage");
         txt.setImage(false, dataImage);
     }
     // Thêm emoji

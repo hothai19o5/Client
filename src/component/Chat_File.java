@@ -1,5 +1,12 @@
 package component;
 
+import event.EventFileReceiver;
+import event.EventFileSender;
+import java.io.File;
+import model.Model_File_Sender;
+import model.Model_Receive_File;
+import service.Service;
+
 public class Chat_File extends javax.swing.JPanel {
 
     public Chat_File() {
@@ -7,8 +14,47 @@ public class Chat_File extends javax.swing.JPanel {
         setOpaque(false);
     }
     
-    public void setFile(String fileName) {
-        lbFileName.setText(fileName);
+    public void setFile(Model_File_Sender dataFile) {
+        lbFileName.setText("File: " + dataFile.getFileID() + dataFile.getFileExtension());
+        dataFile.addEvent(new EventFileSender() {
+            @Override
+            public void onSending(double percentage) {
+               progress.setValue((int)percentage);
+            }
+
+            @Override
+            public void onStartSending() {
+            
+            }
+
+            @Override
+            public void onFinish() {
+                progress.setVisible(false);
+            }
+        });
+    }
+    
+    public void setFile(Model_Receive_File dataFile) {
+        lbFileName.setText("File: " + dataFile.getFileID()+"");
+        try {
+            Service.getInstance().addFileReceiver(dataFile.getFileID(), new EventFileReceiver() {
+                @Override
+                public void onReceiving(double percentage) {
+                    progress.setValue((int)percentage);
+                }
+
+                @Override
+                public void onStartReceiving() {
+                
+                }
+
+                @Override
+                public void onFinish(File file) {
+                    progress.setVisible(false);
+                }
+            });
+        } catch (Exception e) {
+        }
     }
 
     /**
@@ -35,23 +81,21 @@ public class Chat_File extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(progress, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(progress, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbFileName, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lbFileName, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbFileName, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(progress, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbFileName, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                    .addComponent(progress, javax.swing.GroupLayout.PREFERRED_SIZE, 30, Short.MAX_VALUE))
+                .addGap(6, 6, 6))
         );
     }// </editor-fold>//GEN-END:initComponents
 

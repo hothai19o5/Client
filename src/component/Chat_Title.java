@@ -61,11 +61,12 @@ public class Chat_Title extends javax.swing.JPanel {
         layer.setLayout(new java.awt.GridLayout(0, 1));
 
         lbName.setBackground(new java.awt.Color(214, 217, 223));
-        lbName.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbName.setFont(new java.awt.Font("JetBrains Mono", 1, 14)); // NOI18N
         lbName.setText("Name");
         layer.add(lbName);
 
         lbStatus.setBackground(new java.awt.Color(214, 217, 223));
+        lbStatus.setFont(new java.awt.Font("JetBrains Mono Light", 0, 12)); // NOI18N
         lbStatus.setForeground(new java.awt.Color(0, 204, 51));
         lbStatus.setText("Active now");
         layer.add(lbStatus);
@@ -76,8 +77,8 @@ public class Chat_Title extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(layer, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(331, Short.MAX_VALUE))
+                .addComponent(layer, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(310, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

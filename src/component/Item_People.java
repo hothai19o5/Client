@@ -68,7 +68,7 @@ public class Item_People extends javax.swing.JPanel {
         imageAvatar1.setBorderSize(0);
         imageAvatar1.setImage(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-user-48.png"))); // NOI18N
 
-        lb.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lb.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
         lb.setText("Name");
 
         activeStatus.setActive(true);
