@@ -2,22 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/admin/Documents/NetBeansProjects/Client/src/component/Image_Item.java</file>
-            <file>file:/C:/Users/admin/Documents/NetBeansProjects/Client/src/model/Model_File_Receiver.java</file>
-            <file>file:/C:/Users/admin/Documents/NetBeansProjects/Client/src/form/P_Register.java</file>
-            <file>file:/C:/Users/admin/Documents/NetBeansProjects/Client/src/component/Chat_Title.java</file>
-            <file>file:/C:/Users/admin/Documents/NetBeansProjects/Client/src/form/P_Login.java</file>
-            <file>file:/C:/Users/admin/Documents/NetBeansProjects/Client/src/component/Chat_Left.java</file>
-            <file>file:/C:/Users/admin/Documents/NetBeansProjects/Client/src/component/Chat_Item.java</file>
-            <file>file:/C:/Users/admin/Documents/NetBeansProjects/Client/src/component/Chat_File.java</file>
-            <file>file:/C:/Users/admin/Documents/NetBeansProjects/Client/src/component/Chat_Body.java</file>
-            <file>file:/C:/Users/admin/Documents/NetBeansProjects/Client/src/component/Chat_Image.java</file>
-            <file>file:/C:/Users/admin/Documents/NetBeansProjects/Client/src/service/Service.java</file>
-            <file>file:/C:/Users/admin/Documents/NetBeansProjects/Client/src/component/Chat_Bottom.java</file>
-            <file>file:/C:/Users/admin/Documents/NetBeansProjects/Client/src/form/Chat.java</file>
-            <file>file:/C:/Users/admin/Documents/NetBeansProjects/Client/src/component/Item_People.java</file>
-            <file>file:/C:/Users/admin/Documents/NetBeansProjects/Client/src/form/Login.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

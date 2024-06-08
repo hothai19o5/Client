@@ -24,10 +24,12 @@ public class P_Login extends javax.swing.JPanel {
         setBackground(new java.awt.Color(239, 239, 239));
 
         jLabel1.setFont(new java.awt.Font("JetBrains Mono Medium", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("LOGIN");
 
         jLabel2.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("User Name");
 
         txtUser.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
@@ -38,6 +40,7 @@ public class P_Login extends javax.swing.JPanel {
         });
 
         jLabel3.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Password");
 
         cmdLogin.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N

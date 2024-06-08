@@ -32,7 +32,7 @@ public class Main extends javax.swing.JFrame {
 
     private void init() {
         // Đoạn này để thay cái icon java bằng icon của mình
-        setIconImage(new ImageIcon(getClass().getResource("/icon/icon_app2.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("/icon/love-message.png")).getImage());
         // Đoạn này để setting lại cái khung mới
         ComponentResizer com = new ComponentResizer();
         com.registerComponent(this);
@@ -84,7 +84,7 @@ public class Main extends javax.swing.JFrame {
 
             @Override
             public void saveImage(Icon image) {
-                JOptionPane.showMessageDialog(null, "Chưa làm phần này đâu nhé");
+                JOptionPane.showMessageDialog(null, "Chưa làm phần này đâu bé");
             }
         });
     }

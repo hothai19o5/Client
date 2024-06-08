@@ -62,6 +62,7 @@ public class Chat_Title extends javax.swing.JPanel {
 
         lbName.setBackground(new java.awt.Color(214, 217, 223));
         lbName.setFont(new java.awt.Font("JetBrains Mono", 1, 14)); // NOI18N
+        lbName.setForeground(new java.awt.Color(0, 0, 0));
         lbName.setText("Name");
         layer.add(lbName);
 
