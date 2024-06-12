@@ -27,7 +27,6 @@ public class View_Image extends javax.swing.JComponent {
     private void initComponents() {
 
         pic = new swing.PictureBox();
-        save = new javax.swing.JButton();
 
         pic.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -35,33 +34,15 @@ public class View_Image extends javax.swing.JComponent {
             }
         });
 
-        save.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/save.png"))); // NOI18N
-        save.setContentAreaFilled(false);
-        save.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        save.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        save.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saveActionPerformed(evt);
-            }
-        });
-
-        pic.setLayer(save, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
         javax.swing.GroupLayout picLayout = new javax.swing.GroupLayout(pic);
         pic.setLayout(picLayout);
         picLayout.setHorizontalGroup(
             picLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, picLayout.createSequentialGroup()
-                .addContainerGap(364, Short.MAX_VALUE)
-                .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addGap(0, 400, Short.MAX_VALUE)
         );
         picLayout.setVerticalGroup(
             picLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, picLayout.createSequentialGroup()
-                .addContainerGap(274, Short.MAX_VALUE)
-                .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addGap(0, 303, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -80,10 +61,6 @@ public class View_Image extends javax.swing.JComponent {
         setVisible(false);
     }//GEN-LAST:event_picMousePressed
 
-    private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
-        PublicEvent.getInstance().getEventImageView().saveImage(image);
-    }//GEN-LAST:event_saveActionPerformed
-
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
@@ -96,6 +73,5 @@ public class View_Image extends javax.swing.JComponent {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private swing.PictureBox pic;
-    private javax.swing.JButton save;
     // End of variables declaration//GEN-END:variables
 }
